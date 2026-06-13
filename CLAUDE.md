@@ -129,6 +129,12 @@ simplest (Piping or Gusset). Confirm each one builds before moving to next.
 **Pass 5 — nav-config + thin App.jsx**
 Wire up data-driven nav from nav-config.js. App.jsx becomes nav shell only.
 
+> Note: The Accordion Pocket nav id is still "bottle" and internal wiring
+> still references "bottle" throughout App.jsx and nav state
+> (lastPageByGroup default "bottle", etc.). When Pass 5 restructures
+> nav-config.js, rename the id from "bottle" to "accordion" and update
+> all wiring accordingly.
+
 ### Working Rules
 
 - Always confirm the build passes after each change before moving on.
