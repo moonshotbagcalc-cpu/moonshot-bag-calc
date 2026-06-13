@@ -304,6 +304,24 @@ These are confirmed future features to add after the refactor is complete.
 - **Grocery Tote calculator** — Complete bag calculator for a standard grocery
   tote. Joins Two Panel Zipper Pouch in the Complete Bags group.
 
+- **Pass 6: Theming system** — Redesign color system from per-tab ad hoc
+  colors to per-group color families. Each nav group gets one family,
+  individual tabs use tones within it. Families confirmed:
+  - Sides & Panels: purple (deep purple → lavender, eye-friendly)
+  - Bottoms: pumpkin/amber (extend existing BC palette)
+  - Trims & Pockets: earthy greens (sage, moss, forest)
+  - Handles & Hardware: earthy rich blues (slate, denim, ink)
+  - Complete Bags: maroon (deep, rich)
+  Magenta permitted within Sides & Panels family if eye-friendly.
+  Implementation: define new :root custom property families in
+  moonshot.css, update nav-config.js tab colors, update per-tab
+  theme objects (T, CP, BC etc) to reference new tokens. Coordinate
+  with SVG diagram design system (also Flagged for Later) so diagram
+  colors match tab theming automatically.
+  Each tab within a group gets one unique accent token for header bars
+  and active state buttons. All other styling inherits group-level tokens.
+  Pattern: --[tab-id]-accent: [color]. Minimal per-tab footprint.
+
 > Note: moonshot-consolidated-reference.css in the project root is a
 > designer-authored style reference file. Claude Code should read this file
 > before beginning Pass 4 tab extractions and use it as a guide when converting
