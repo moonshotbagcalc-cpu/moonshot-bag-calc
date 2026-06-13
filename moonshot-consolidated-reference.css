@@ -1,0 +1,1087 @@
+/* =====================================================================
+   MoonShot Bag Calculator — consolidated reference stylesheet
+   =====================================================================
+
+   Built from:
+   1) the current working moonshot.css
+   2) the style-capture add-on pulled from App.jsx inline styles
+
+   Safe-use note:
+   - This file is meant as a reference-ready combined stylesheet.
+   - It preserves the CURRENT active .ms- / .cp- / .bc- selectors from
+     moonshot.css.
+   - It also adds FUTURE/REFERENCE .ms-theme-* and .ms-* component targets
+     that will not affect the app until the JSX is intentionally updated to
+     use those classNames.
+   - In other words: this file consolidates your design language, but the
+     older inline-styled tabs still need a later JSX refactor before those
+     new .ms-card / .ms-subtab / .ms-frac-* rules visually take over.
+
+   Naming families used here:
+   ----------------------------------------------------------------------
+   .ms-*          MoonShot global app shell, shared future components,
+                  and reference theme wrappers.
+
+   .cp-*          Curved Panel active styles. These are specialty styles
+                  for the newer maroon tab and its Mission Control window.
+
+   .bc-*          Boxed Corner active styles. These are specialty styles
+                  for the newer pumpkin tab and its Mission Control window.
+
+   .mark-guide-*  Measurement/mark-guide table rows used by calculator
+                  output sections.
+
+   .is-*          Future state naming convention for reusable classes,
+                  such as .is-active, .is-big, .is-accent, .is-custom.
+                  Existing active CP/BC code still uses some current state
+                  names like .on, .dragging, .resizing, .docked-left, and
+                  .docked-right; those are preserved for safety.
+
+   Token layers used here:
+   ----------------------------------------------------------------------
+   1. Raw / primitive tokens
+      Fonts, border widths, radii, shadows, and shared dimensions.
+
+   2. Active palette tokens
+      Existing --cp-* and --bc-* values currently used by live CP/BC CSS.
+
+   3. Captured legacy palette tokens
+      --ms-lid-*, --ms-gusset-*, --ms-piping-*, --ms-accordion-*, and
+      --ms-legacy-curved-* values copied from App.jsx's T object.
+
+   4. Theme bridge tokens
+      .ms-theme-lid, .ms-theme-gusset, etc. map calculator-specific colors
+      into neutral --theme-* roles for future generic .ms-* components.
+
+   5. Component selectors
+      Existing active selectors remain .cp-* and .bc-*; future shared
+      selectors use .ms-*.
+
+   ===================================================================== */
+
+:root {
+  /* ===================================================================
+     A) Current active tokens from the existing moonshot.css
+     =================================================================== */
+/* Typography */
+  --font-sans: Nunito, sans-serif;
+  --font-mono: "DM Mono", monospace;
+
+  /* Shared/global colors */
+  --ms-header-bg: #1e1040;
+
+  /* Shared status colors (used by .cp-status.ok and .bc-status.ok) */
+  --status-ok-bg: #e8f5ee;
+  --status-ok-line: #8ac7a7;
+  --status-ok-text: #185c3b;
+
+  /* Curved Panel "maroon" palette (CP) */
+  --cp-maroon: #8e1d3c;
+  --cp-maroon-dark: #6f152e;
+  --cp-rose: #c2476b;
+  --cp-pink-bg: #fdf4f6;
+  --cp-pink-soft: #f7e3e9;
+  --cp-pink-line: #ecccd6;
+  --cp-ink: #4a2230;
+  --cp-muted: #9a6b7b;
+  --cp-green: #1d6b45;
+  --cp-amber-bg: #fdf3e0;
+  --cp-amber-ink: #8a5a10;
+  --cp-amber-line: #e8c98a;
+
+  /* Curved Panel floating "Mission Control" dock accent colors */
+  --cp-dock-ink: #7a1a2e;
+  --cp-dock-accent: #b24768;
+  --cp-dock-accent-soft: #e1a4b6;
+  --cp-dock-line: #d992a8;
+  --cp-dock-bg: #fff8fa;
+
+  /* Boxed Corner "pumpkin" palette (BC) */
+  --bc-pumpkin: #a84f14;
+  --bc-pumpkin-dark: #763407;
+  --bc-amber: #ca6b27;
+  --bc-cream: #fffaf6;
+  --bc-soft: #f6e3d4;
+  --bc-line: #e6b88f;
+  --bc-ink: #4d2a15;
+  --bc-muted: #9a6b4e;
+  --bc-warn-bg: #fff4df;
+  --bc-warn-line: #e6bf73;
+  --bc-warn-ink: #7b4d08;
+
+  /* Boxed Corner floating dock accent color */
+  --bc-dock-accent-soft: #e2aa7d;
+
+
+  /* -------------------------------------------------------------------
+     Primitive MoonShot tokens
+     -------------------------------------------------------------------
+     These are intentionally not tied to a color palette. They describe
+     reusable CSS values: border thickness, corner radius, shadows, etc.
+     Future refactors should prefer these instead of repeating literal
+     values like 1.5px, 8px, 10px, and so on.
+     ------------------------------------------------------------------- */
+  --ms-border-width-thin: 1px;
+  --ms-border-width-standard: 1.5px;
+  --ms-border-width-strong: 2px;
+
+  --ms-radius-xs: 6px;
+  --ms-radius-input: 7px;
+  --ms-radius-control: 8px;
+  --ms-radius-result: 9px;
+  --ms-radius-card: 10px;
+  --ms-radius-dock: 13px;
+  --ms-radius-panel: 14px;
+  --ms-radius-pill: 999px;
+
+  --ms-shadow-card-soft: 0 1px 3px rgba(0,0,0,.06);
+  --ms-shadow-card: 0 2px 8px rgba(0,0,0,.05);
+  --ms-shadow-section: 0 4px 18px rgba(26,74,122,.12);
+
+
+  /* ===================================================================
+     B) Captured/reference tokens from App.jsx inline styles
+     ===================================================================
+     These are mostly not wired yet. They exist so the older tabs can be
+     converted later without having to rediscover all the colors and role
+     names. Keep them in MoonShot's current naming family: --ms-*.
+     =================================================================== */
+/* Existing app fonts already declared in moonshot.css; repeated here for reference. */
+  --ms-font-sans: var(--font-sans, Nunito, sans-serif);
+  --ms-font-mono: var(--font-mono, "DM Mono", monospace);
+
+  /* App shell / header / intro / footer tokens pulled from App.jsx inline styles. */
+  --ms-shell-bg: #1e1040;
+  --ms-shell-bg-deep: #140d30;
+  --ms-wordmark-accent: #9880d8;
+  --ms-mobile-peek-accent: #b8a8e8;
+  --ms-unit-active-bg: #c8b8f0;
+  --ms-unit-active-ink: #1e1040;
+  --ms-unit-off-ink: rgba(255,255,255,0.68);
+  --ms-unit-border: rgba(152,128,216,0.5);
+  --ms-thread-guide-bg: #ccc8d8;
+  --ms-thread-guide-border: #b8b0cc;
+  --ms-thread-guide-ink: #3a1060;
+  --ms-intro-grad-a: #2a1860;
+  --ms-intro-grad-b: #1a0e40;
+  --ms-intro-kicker: #c8b8f0;
+  --ms-intro-copy: rgba(255,255,255,0.72);
+  --ms-footer-bg: #140d30;
+  --ms-footer-muted: rgba(255,255,255,0.35);
+  --ms-footer-copy: rgba(255,255,255,0.45);
+  --ms-footer-fine: rgba(255,255,255,0.2);
+  --ms-footer-link: #b8a8e8;
+  --ms-footer-button-bg: rgba(152,128,216,0.15);
+  --ms-footer-button-border: rgba(152,128,216,0.3);
+
+  /* Shared status / warning colors used by the legacy helper components. */
+  --ms-ok-bg: #e0f5ea;
+  --ms-ok-border: #5aaa80;
+  --ms-ok-ink: #1a5c38;
+  --ms-warn-bg: #fdf4e0;
+  --ms-warn-border: #d4a820;
+  --ms-warn-ink: #6b4400;
+  --ms-custom-bg: #fef3c7;
+  --ms-custom-border: #c08800;
+
+  /* Active nav/page accent colors. Under-construction tabs intentionally omitted. */
+  --ms-nav-basic: #7658b3;
+  --ms-nav-advanced: #9a3e52;
+  --ms-nav-pockets: #356b9b;
+  --ms-page-lid: #5a2da0;
+  --ms-page-gusset: #1a6e3a;
+  --ms-page-piping: #8e1a9e;
+  --ms-page-accordion: #1a4a7a;
+  --ms-page-curved: #7a1a2e;
+  --ms-page-boxed: #a84f14;
+
+  /* Page background colors/pattern accents for active, non-blank tabs. */
+  --ms-bg-lid: #f0ecfc;
+  --ms-bg-lid-stroke: #5a2da0;
+  --ms-bg-gusset: #ecf8f0;
+  --ms-bg-gusset-stroke: #1a6e3a;
+  --ms-bg-piping: #f8eefb;
+  --ms-bg-piping-stroke: #8e1a9e;
+  --ms-bg-accordion: #eaf2fc;
+  --ms-bg-accordion-stroke: #1a4a7a;
+  --ms-bg-curved: #f2e8ea;
+  --ms-bg-curved-stroke: #7a1a2e;
+  --ms-bg-boxed: #faf0e8;
+  --ms-bg-boxed-stroke: #a84f14;
+
+
+  /* Lid & Bottom / purple palette from App.jsx T.purple. */
+  --ms-lid-sec: #ede8f7;
+  --ms-lid-hdr: #5a2da0;
+  --ms-lid-hdr-txt: #fff;
+  --ms-lid-card: #faf8ff;
+  --ms-lid-border: #b09ee0;
+  --ms-lid-label: #4a1f96;
+  --ms-lid-sub: #8a70c0;
+  --ms-lid-accent: #5a2da0;
+  --ms-lid-input-bg: #f3f0fc;
+  --ms-lid-input-txt: #2e1060;
+  --ms-lid-res-bg: #e2daf5;
+  --ms-lid-res-accent: #4a1f96;
+  --ms-lid-res-txt: #2e1060;
+  --ms-lid-btn-on: #5a2da0;
+  --ms-lid-btn-on-txt: #fff;
+  --ms-lid-btn-off: #e2daf5;
+  --ms-lid-btn-off-txt: #4a1f96;
+  --ms-lid-info: #ede8f7;
+  --ms-lid-info-bdr: #9880d0;
+  --ms-lid-info-txt: #3a1880;
+  --ms-lid-ok: #e0f5ea;
+  --ms-lid-ok-bdr: #5aaa80;
+  --ms-lid-ok-txt: #1a5c38;
+  --ms-lid-warn: #fdf4e0;
+  --ms-lid-warn-bdr: #d4a820;
+  --ms-lid-warn-txt: #6b4400;
+  --ms-lid-nudge-bg: #e2daf5;
+  --ms-lid-nudge-txt: #4a1f96;
+  --ms-lid-page-bg: #f0ecfc;
+
+  /* Gusset / green palette from App.jsx T.green. */
+  --ms-gusset-sec: #e2f5e8;
+  --ms-gusset-hdr: #1a6e3a;
+  --ms-gusset-hdr-txt: #fff;
+  --ms-gusset-card: #f4fbf6;
+  --ms-gusset-border: #72c490;
+  --ms-gusset-label: #165c30;
+  --ms-gusset-sub: #3a9e60;
+  --ms-gusset-accent: #1a6e3a;
+  --ms-gusset-input-bg: #eaf7ee;
+  --ms-gusset-input-txt: #0e3d20;
+  --ms-gusset-res-bg: #ceeedd;
+  --ms-gusset-res-accent: #165c30;
+  --ms-gusset-res-txt: #0e3d20;
+  --ms-gusset-btn-on: #1a6e3a;
+  --ms-gusset-btn-on-txt: #fff;
+  --ms-gusset-btn-off: #ceeedd;
+  --ms-gusset-btn-off-txt: #165c30;
+  --ms-gusset-info: #e2f5e8;
+  --ms-gusset-info-bdr: #72c490;
+  --ms-gusset-info-txt: #0e3d20;
+  --ms-gusset-warn: #fdf4e0;
+  --ms-gusset-warn-bdr: #d4a820;
+  --ms-gusset-warn-txt: #6b4400;
+  --ms-gusset-nudge-bg: #ceeedd;
+  --ms-gusset-nudge-txt: #165c30;
+  --ms-gusset-page-bg: #ecf8f0;
+
+  /* Piping / magenta palette from App.jsx T.magenta. */
+  --ms-piping-sec: #f5e2f8;
+  --ms-piping-hdr: #8e1a9e;
+  --ms-piping-hdr-txt: #fff;
+  --ms-piping-card: #fdf5ff;
+  --ms-piping-border: #d090e0;
+  --ms-piping-label: #741880;
+  --ms-piping-sub: #c060d8;
+  --ms-piping-accent: #8e1a9e;
+  --ms-piping-input-bg: #f8eefb;
+  --ms-piping-input-txt: #4a0a58;
+  --ms-piping-res-bg: #eecef5;
+  --ms-piping-res-accent: #741880;
+  --ms-piping-res-txt: #4a0a58;
+  --ms-piping-btn-on: #8e1a9e;
+  --ms-piping-btn-on-txt: #fff;
+  --ms-piping-btn-off: #eecef5;
+  --ms-piping-btn-off-txt: #741880;
+  --ms-piping-info: #f5e2f8;
+  --ms-piping-info-bdr: #c070d8;
+  --ms-piping-info-txt: #4a0a58;
+  --ms-piping-warn: #fdf4e0;
+  --ms-piping-warn-bdr: #d4a820;
+  --ms-piping-warn-txt: #6b4400;
+  --ms-piping-nudge-bg: #eecef5;
+  --ms-piping-nudge-txt: #741880;
+  --ms-piping-page-bg: #f8eefb;
+
+  /* Accordion Pocket / blue palette from App.jsx T.blue. */
+  --ms-accordion-sec: #e0eaf7;
+  --ms-accordion-hdr: #1a4a7a;
+  --ms-accordion-hdr-txt: #fff;
+  --ms-accordion-card: #f4f8ff;
+  --ms-accordion-border: #7aaad8;
+  --ms-accordion-label: #0e3060;
+  --ms-accordion-sub: #3a70a8;
+  --ms-accordion-accent: #1a4a7a;
+  --ms-accordion-input-bg: #eaf2fc;
+  --ms-accordion-input-txt: #0a1e40;
+  --ms-accordion-res-bg: #ccdff5;
+  --ms-accordion-res-accent: #0e3060;
+  --ms-accordion-res-txt: #0a1e40;
+  --ms-accordion-btn-on: #1a4a7a;
+  --ms-accordion-btn-on-txt: #fff;
+  --ms-accordion-btn-off: #ccdff5;
+  --ms-accordion-btn-off-txt: #0e3060;
+  --ms-accordion-info: #e0eaf7;
+  --ms-accordion-info-bdr: #5a90c8;
+  --ms-accordion-info-txt: #0a1e40;
+  --ms-accordion-ok: #e0f5ea;
+  --ms-accordion-ok-bdr: #5aaa80;
+  --ms-accordion-ok-txt: #1a5c38;
+  --ms-accordion-warn: #fdf4e0;
+  --ms-accordion-warn-bdr: #d4a820;
+  --ms-accordion-warn-txt: #6b4400;
+  --ms-accordion-nudge-bg: #ccdff5;
+  --ms-accordion-nudge-txt: #0e3060;
+  --ms-accordion-page-bg: #eaf2fc;
+
+  /* Legacy Advanced wrapper / maroon palette from App.jsx T.advanced. */
+  --ms-legacy-curved-sec: #f5eaec;
+  --ms-legacy-curved-hdr: #7a1a2e;
+  --ms-legacy-curved-hdr-txt: #fff;
+  --ms-legacy-curved-card: #fdf5f6;
+  --ms-legacy-curved-border: #c48090;
+  --ms-legacy-curved-label: #5c1020;
+  --ms-legacy-curved-sub: #a04060;
+  --ms-legacy-curved-accent: #7a1a2e;
+  --ms-legacy-curved-input-bg: #f8eef0;
+  --ms-legacy-curved-input-txt: #3a0818;
+  --ms-legacy-curved-res-bg: #eeccd4;
+  --ms-legacy-curved-res-accent: #5c1020;
+  --ms-legacy-curved-res-txt: #3a0818;
+  --ms-legacy-curved-btn-on: #7a1a2e;
+  --ms-legacy-curved-btn-on-txt: #fff;
+  --ms-legacy-curved-btn-off: #eeccd4;
+  --ms-legacy-curved-btn-off-txt: #5c1020;
+  --ms-legacy-curved-info: #f5eaec;
+  --ms-legacy-curved-info-bdr: #b06070;
+  --ms-legacy-curved-info-txt: #3a0818;
+  --ms-legacy-curved-ok: #e0f5ea;
+  --ms-legacy-curved-ok-bdr: #5aaa80;
+  --ms-legacy-curved-ok-txt: #1a5c38;
+  --ms-legacy-curved-warn: #fdf4e0;
+  --ms-legacy-curved-warn-bdr: #d4a820;
+  --ms-legacy-curved-warn-txt: #6b4400;
+  --ms-legacy-curved-nudge-bg: #eeccd4;
+  --ms-legacy-curved-nudge-txt: #5c1020;
+  --ms-legacy-curved-page-bg: #f2e8ea;
+
+  /* Lid/Bottom diagram tokens from DT object. */
+  --ms-diagram-lid-fill: #ede8f7;
+  --ms-diagram-lid-stroke: #5a2da0;
+  --ms-diagram-side-fill: #e2daf5;
+  --ms-diagram-side-stroke: #4a1f96;
+  --ms-diagram-sew-stroke: #8a70c0;
+  --ms-diagram-panel-name: #4a1f96;
+  --ms-diagram-panel-sub: #8a70c0;
+  --ms-diagram-radius-dot: #5a2da0;
+  --ms-diagram-radius-text: #4a1f96;
+  --ms-diagram-dim-line: #5a2da0;
+  --ms-diagram-svg-bg: #ffffff;
+
+  /* Shared floating dock reference layer for Curved Panel + Boxed Corner.
+     Current moonshot.css already has .cp-floatDock and .bc-floatDock rules;
+     these are neutral tokens for a future shared .ms-floatDock refactor. */
+  --ms-float-min-w: 280px;
+  --ms-float-min-h: 250px;
+  --ms-float-max-w: calc(100vw - 20px);
+  --ms-float-max-h: calc(100vh - 20px);
+  --ms-float-radius: 13px;
+  --ms-float-z: 35;
+  --ms-float-shadow-cp: 0 14px 34px rgba(86,24,49,.25);
+  --ms-float-shadow-cp-active: 0 18px 42px rgba(86,24,49,.34);
+  --ms-float-shadow-bc: 0 14px 34px rgba(96,49,18,.22);
+  --ms-float-shadow-bc-active: 0 18px 42px rgba(96,49,18,.32);
+}
+
+/* =====================================================================
+   Reference layer — legacy tab theme bridges and future .ms-* components
+   =====================================================================
+
+   This layer applies the current MoonShot naming convention to the older
+   inline-styled tabs.
+
+   How to read it:
+   - .ms-theme-lid / .ms-theme-gusset / .ms-theme-piping / .ms-theme-accordion
+     are wrapper scopes. Later, each old tab can be wrapped in one of these.
+   - Inside a wrapper, --theme-* variables become the neutral, role-based
+     names used by shared .ms-* components.
+   - Example future JSX:
+
+       <div className="ms-theme-gusset">
+         <div className="ms-card">
+           <div className="ms-card-title">Measurements</div>
+         </div>
+       </div>
+
+   Until JSX uses those classes, this section is mainly a reference map.
+   ===================================================================== */
+
+/* =====================================================================
+   Future wrapper scopes
+   ---------------------------------------------------------------------
+   Later JSX idea:
+     <div className="ms-theme-lid"><SecHeader ... /></div>
+   Then the generic .ms-* component classes below read from --theme-*.
+   ===================================================================== */
+
+.ms-theme-lid {
+  --theme-sec: var(--ms-lid-sec);
+  --theme-hdr: var(--ms-lid-hdr);
+  --theme-hdr-txt: var(--ms-lid-hdr-txt);
+  --theme-card: var(--ms-lid-card);
+  --theme-border: var(--ms-lid-border);
+  --theme-label: var(--ms-lid-label);
+  --theme-sub: var(--ms-lid-sub);
+  --theme-accent: var(--ms-lid-accent);
+  --theme-input-bg: var(--ms-lid-input-bg);
+  --theme-input-txt: var(--ms-lid-input-txt);
+  --theme-res-bg: var(--ms-lid-res-bg);
+  --theme-res-accent: var(--ms-lid-res-accent);
+  --theme-res-txt: var(--ms-lid-res-txt);
+  --theme-btn-on: var(--ms-lid-btn-on);
+  --theme-btn-on-txt: var(--ms-lid-btn-on-txt);
+  --theme-btn-off: var(--ms-lid-btn-off);
+  --theme-btn-off-txt: var(--ms-lid-btn-off-txt);
+  --theme-info: var(--ms-lid-info);
+  --theme-info-bdr: var(--ms-lid-info-bdr);
+  --theme-info-txt: var(--ms-lid-info-txt);
+  --theme-nudge-bg: var(--ms-lid-nudge-bg);
+  --theme-nudge-txt: var(--ms-lid-nudge-txt);
+}
+
+.ms-theme-gusset {
+  --theme-sec: var(--ms-gusset-sec);
+  --theme-hdr: var(--ms-gusset-hdr);
+  --theme-hdr-txt: var(--ms-gusset-hdr-txt);
+  --theme-card: var(--ms-gusset-card);
+  --theme-border: var(--ms-gusset-border);
+  --theme-label: var(--ms-gusset-label);
+  --theme-sub: var(--ms-gusset-sub);
+  --theme-accent: var(--ms-gusset-accent);
+  --theme-input-bg: var(--ms-gusset-input-bg);
+  --theme-input-txt: var(--ms-gusset-input-txt);
+  --theme-res-bg: var(--ms-gusset-res-bg);
+  --theme-res-accent: var(--ms-gusset-res-accent);
+  --theme-res-txt: var(--ms-gusset-res-txt);
+  --theme-btn-on: var(--ms-gusset-btn-on);
+  --theme-btn-on-txt: var(--ms-gusset-btn-on-txt);
+  --theme-btn-off: var(--ms-gusset-btn-off);
+  --theme-btn-off-txt: var(--ms-gusset-btn-off-txt);
+  --theme-info: var(--ms-gusset-info);
+  --theme-info-bdr: var(--ms-gusset-info-bdr);
+  --theme-info-txt: var(--ms-gusset-info-txt);
+  --theme-nudge-bg: var(--ms-gusset-nudge-bg);
+  --theme-nudge-txt: var(--ms-gusset-nudge-txt);
+}
+
+.ms-theme-piping {
+  --theme-sec: var(--ms-piping-sec);
+  --theme-hdr: var(--ms-piping-hdr);
+  --theme-hdr-txt: var(--ms-piping-hdr-txt);
+  --theme-card: var(--ms-piping-card);
+  --theme-border: var(--ms-piping-border);
+  --theme-label: var(--ms-piping-label);
+  --theme-sub: var(--ms-piping-sub);
+  --theme-accent: var(--ms-piping-accent);
+  --theme-input-bg: var(--ms-piping-input-bg);
+  --theme-input-txt: var(--ms-piping-input-txt);
+  --theme-res-bg: var(--ms-piping-res-bg);
+  --theme-res-accent: var(--ms-piping-res-accent);
+  --theme-res-txt: var(--ms-piping-res-txt);
+  --theme-btn-on: var(--ms-piping-btn-on);
+  --theme-btn-on-txt: var(--ms-piping-btn-on-txt);
+  --theme-btn-off: var(--ms-piping-btn-off);
+  --theme-btn-off-txt: var(--ms-piping-btn-off-txt);
+  --theme-info: var(--ms-piping-info);
+  --theme-info-bdr: var(--ms-piping-info-bdr);
+  --theme-info-txt: var(--ms-piping-info-txt);
+  --theme-nudge-bg: var(--ms-piping-nudge-bg);
+  --theme-nudge-txt: var(--ms-piping-nudge-txt);
+}
+
+.ms-theme-accordion {
+  --theme-sec: var(--ms-accordion-sec);
+  --theme-hdr: var(--ms-accordion-hdr);
+  --theme-hdr-txt: var(--ms-accordion-hdr-txt);
+  --theme-card: var(--ms-accordion-card);
+  --theme-border: var(--ms-accordion-border);
+  --theme-label: var(--ms-accordion-label);
+  --theme-sub: var(--ms-accordion-sub);
+  --theme-accent: var(--ms-accordion-accent);
+  --theme-input-bg: var(--ms-accordion-input-bg);
+  --theme-input-txt: var(--ms-accordion-input-txt);
+  --theme-res-bg: var(--ms-accordion-res-bg);
+  --theme-res-accent: var(--ms-accordion-res-accent);
+  --theme-res-txt: var(--ms-accordion-res-txt);
+  --theme-btn-on: var(--ms-accordion-btn-on);
+  --theme-btn-on-txt: var(--ms-accordion-btn-on-txt);
+  --theme-btn-off: var(--ms-accordion-btn-off);
+  --theme-btn-off-txt: var(--ms-accordion-btn-off-txt);
+  --theme-info: var(--ms-accordion-info);
+  --theme-info-bdr: var(--ms-accordion-info-bdr);
+  --theme-info-txt: var(--ms-accordion-info-txt);
+  --theme-nudge-bg: var(--ms-accordion-nudge-bg);
+  --theme-nudge-txt: var(--ms-accordion-nudge-txt);
+}
+
+/* Optional old Advanced wrapper palette, retained only because CurvedPanelPage
+   still declares const th = T.advanced in App.jsx. The newer .cp-* CSS should
+   stay the primary Curved Panel styling direction. */
+.ms-theme-legacy-curved {
+  --theme-sec: var(--ms-legacy-curved-sec);
+  --theme-hdr: var(--ms-legacy-curved-hdr);
+  --theme-hdr-txt: var(--ms-legacy-curved-hdr-txt);
+  --theme-card: var(--ms-legacy-curved-card);
+  --theme-border: var(--ms-legacy-curved-border);
+  --theme-label: var(--ms-legacy-curved-label);
+  --theme-sub: var(--ms-legacy-curved-sub);
+  --theme-accent: var(--ms-legacy-curved-accent);
+  --theme-input-bg: var(--ms-legacy-curved-input-bg);
+  --theme-input-txt: var(--ms-legacy-curved-input-txt);
+  --theme-res-bg: var(--ms-legacy-curved-res-bg);
+  --theme-res-accent: var(--ms-legacy-curved-res-accent);
+  --theme-res-txt: var(--ms-legacy-curved-res-txt);
+  --theme-btn-on: var(--ms-legacy-curved-btn-on);
+  --theme-btn-on-txt: var(--ms-legacy-curved-btn-on-txt);
+  --theme-btn-off: var(--ms-legacy-curved-btn-off);
+  --theme-btn-off-txt: var(--ms-legacy-curved-btn-off-txt);
+  --theme-info: var(--ms-legacy-curved-info);
+  --theme-info-bdr: var(--ms-legacy-curved-info-bdr);
+  --theme-info-txt: var(--ms-legacy-curved-info-txt);
+  --theme-nudge-bg: var(--ms-legacy-curved-nudge-bg);
+  --theme-nudge-txt: var(--ms-legacy-curved-nudge-txt);
+}
+
+/* =====================================================================
+   Legacy shared component class targets
+   ---------------------------------------------------------------------
+   These mirror the inline style components in App.jsx. They are not wired
+   yet; use as targets when replacing inline styles.
+   ===================================================================== */
+
+.ms-section {
+  background: var(--theme-sec);
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgba(26,74,122,0.12);
+}
+
+.ms-sec-header {
+  background: var(--theme-hdr);
+  border-radius: 14px 14px 0 0;
+  padding: 18px 22px 14px;
+}
+
+.ms-sec-title {
+  font-family: var(--ms-font-sans);
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  color: var(--theme-hdr-txt);
+}
+
+.ms-sec-subtitle {
+  font-family: var(--ms-font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: rgba(255,255,255,0.85);
+  margin-top: 5px;
+}
+
+.ms-card {
+  background: var(--theme-card);
+  border: 1.5px solid var(--theme-border);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.ms-card-title {
+  font-family: var(--ms-font-sans);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--theme-label);
+  border-bottom: 2px solid var(--theme-border);
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+}
+
+.ms-result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--theme-border);
+}
+
+.ms-result-label {
+  font-family: var(--ms-font-sans);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--theme-label);
+}
+
+.ms-result-value {
+  font-family: var(--ms-font-mono);
+  font-size: 19px;
+  font-weight: 500;
+  color: var(--theme-res-txt);
+}
+
+.ms-result-value.is-big { font-size: 24px; }
+.ms-result-value.is-accent { color: var(--theme-res-accent); }
+
+.ms-info-box {
+  background: var(--theme-info);
+  border: 1.5px solid var(--theme-info-bdr);
+  border-radius: 8px;
+  padding: 11px 14px;
+  margin-top: 10px;
+  font-family: var(--ms-font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--theme-info-txt);
+}
+
+.ms-note-box {
+  background: var(--ms-warn-bg);
+  border: 1.5px solid var(--ms-warn-border);
+  border-radius: 8px;
+  padding: 11px 14px;
+  margin-top: 10px;
+  font-family: var(--ms-font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--ms-warn-ink);
+}
+
+.ms-subtabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.ms-subtab {
+  flex: 1;
+  min-width: 80px;
+  padding: 10px 6px;
+  border: none;
+  border-radius: 8px;
+  background: var(--theme-btn-off);
+  color: var(--theme-btn-off-txt);
+  cursor: pointer;
+  font-family: var(--ms-font-sans);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: all 0.15s;
+}
+
+.ms-subtab.is-active {
+  background: var(--theme-btn-on);
+  color: var(--theme-btn-on-txt);
+}
+
+.ms-nudge {
+  width: 100%;
+  flex: 1;
+  padding: 4px 2px;
+  border: 1.5px solid var(--theme-border);
+  border-radius: 6px;
+  background: var(--theme-nudge-bg);
+  color: var(--theme-nudge-txt);
+  cursor: pointer;
+  font-family: var(--ms-font-mono);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.ms-divider {
+  border-top: 2px dashed var(--theme-border);
+  margin: 14px 0;
+  opacity: 0.5;
+}
+
+.ms-sa-bar {
+  background: var(--theme-card);
+  border: 1.5px solid var(--theme-border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.ms-sa-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.ms-sa-button {
+  padding: 10px 14px;
+  border: 2px solid var(--theme-border);
+  border-radius: 8px;
+  background: var(--theme-btn-off);
+  color: var(--theme-btn-off-txt);
+  cursor: pointer;
+  font-family: var(--ms-font-mono);
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.15s;
+}
+
+.ms-sa-button.is-active {
+  background: var(--theme-btn-on);
+  border-color: var(--theme-btn-on);
+  color: var(--theme-btn-on-txt);
+}
+
+.ms-custom-sa-input,
+.ms-frac-input,
+.ms-frac-select {
+  border: 2px solid var(--theme-border);
+  border-radius: 8px;
+  background: var(--theme-input-bg);
+  color: var(--theme-input-txt);
+  outline: none;
+  text-align: center;
+  font-family: var(--ms-font-mono);
+  font-weight: 500;
+}
+
+.ms-custom-sa-input {
+  width: 88px;
+  padding: 10px 8px;
+  font-size: 14px;
+}
+
+.ms-custom-sa-input.is-custom {
+  background: var(--ms-custom-bg);
+  border-color: var(--ms-custom-border);
+}
+
+.ms-frac-field { margin-bottom: 16px; }
+
+.ms-frac-label {
+  font-family: var(--ms-font-sans);
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--theme-label);
+  margin-bottom: 6px;
+}
+
+.ms-frac-sub {
+  font-family: var(--ms-font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--theme-sub);
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+
+.ms-frac-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.ms-frac-input {
+  width: 64px;
+  padding: 9px 8px;
+  font-size: 22px;
+}
+
+.ms-frac-input.is-metric { width: 118px; }
+
+.ms-frac-select {
+  padding: 9px 8px;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.ms-frac-unit {
+  min-width: 56px;
+  font-family: var(--ms-font-mono);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--theme-accent);
+}
+
+.ms-frac-unit.is-metric { min-width: 38px; }
+
+/* Optional shared floating dock future class. Keep current .cp-floatDock and
+   .bc-floatDock rules until the JSX is deliberately refactored. */
+.ms-floatDock {
+  position: fixed;
+  z-index: var(--ms-float-z);
+  min-width: var(--ms-float-min-w);
+  min-height: var(--ms-float-min-h);
+  max-width: var(--ms-float-max-w);
+  max-height: var(--ms-float-max-h);
+  border-radius: var(--ms-float-radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.ms-floatDock.docked-left {
+  border-left: none;
+  border-radius: 0 var(--ms-float-radius) var(--ms-float-radius) 0;
+}
+
+.ms-floatDock.docked-right {
+  border-right: none;
+  border-radius: var(--ms-float-radius) 0 0 var(--ms-float-radius);
+}
+
+@media (max-width: 700px) {
+  .ms-floatDock { display: none; }
+}
+
+
+/* =====================================================================
+   Current active stylesheet from moonshot.css
+   =====================================================================
+
+   The selectors below are the live styles already used by the app.
+   They are intentionally preserved so this consolidated file stays close
+   to your current working CSS.
+   ===================================================================== */
+
+/* =====================================================================
+   Global layout & responsive rules
+   ---------------------------------------------------------------------
+   - .ms-app is the app shell: max-width 520px by default, widening to
+     820px at >=768px (tablet/desktop).
+   - .frac-row (whole+fraction input pairs) stacks on narrow screens and
+     becomes a side-by-side flex row at >=768px.
+   - At <=600px, the sticky site header (.ms-site-header) can collapse to
+     a slim "peek" bar (.ms-mobile-peek) via the .mobile-collapsed class,
+     hiding the full header/nav and showing a tap-to-expand strip instead.
+   - The "mark guide" table (.mark-guide-*) is a 3-column grid on wider
+     screens; at <=560px the header row hides and the width column wraps
+     onto its own line under the action column.
+   ===================================================================== */
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;padding:0;background-attachment:fixed}
+.ms-app{max-width:520px;margin:0 auto;font-family:var(--font-sans);min-height:100vh}
+.mark-guide-head,.mark-guide-row{display:grid;grid-template-columns:minmax(82px,108px) 1fr minmax(92px,132px);column-gap:14px;align-items:baseline}
+.mark-guide-head{font-size:12px;font-weight:900;letter-spacing:0.08em;text-transform:uppercase;opacity:0.72;padding:0 0 8px;border-bottom:1.5px solid currentColor}
+.mark-guide-row{padding:8px 0;border-bottom:1px solid rgba(90,144,200,0.5)}
+.mark-guide-measure{font-family:var(--font-mono);font-size:20px;font-weight:500;white-space:nowrap}
+.mark-guide-action{font-size:14px;font-weight:700;line-height:1.35}
+.mark-guide-width{font-family:var(--font-mono);font-size:16px;font-weight:500;text-align:left;white-space:nowrap}
+.mark-seg-pill{display:inline-block;border-radius:999px;padding:2px 8px;font-size:13px;font-weight:900;letter-spacing:0.02em;color:#fff;margin-right:6px}
+@media(min-width:768px){
+  .ms-app{max-width:820px}
+  .frac-row{display:flex;gap:14px;align-items:flex-start}
+  .frac-row>div{flex:1;min-width:0}
+}
+.ms-mobile-peek{display:none}
+@media(max-width:600px){
+  .ms-site-header{transition:transform .24s ease;will-change:transform;isolation:isolate}
+  .ms-site-header.mobile-collapsed{transform:translateY(calc(-100% + 36px))}
+  .ms-header-inner,.ms-nav-wrap{position:relative;z-index:2;background:var(--ms-header-bg);transition:opacity .13s ease}
+  .ms-site-header.mobile-collapsed .ms-header-inner,
+  .ms-site-header.mobile-collapsed .ms-nav-wrap{opacity:0;pointer-events:none}
+  .ms-mobile-peek{display:flex;position:absolute;z-index:1;left:0;right:0;bottom:0;height:36px;align-items:center;justify-content:space-between;padding:0 13px;background:var(--ms-header-bg);border-top:1px solid rgba(255,255,255,.10);color:#fff;font-family:var(--font-sans);cursor:pointer;user-select:none;pointer-events:none}
+  .ms-site-header.mobile-collapsed .ms-mobile-peek{pointer-events:auto}
+  .ms-mobile-peek strong{font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+  .ms-mobile-peek span{font-size:12px;font-weight:800;color:rgba(255,255,255,.62);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:55vw}
+  .ms-mobile-peek b{font-size:17px;color:#b8a8e8;line-height:1}
+  .ms-header-inner{padding:10px 12px 0!important}
+  .ms-wordmark{font-size:clamp(24px,8.4vw,31px)!important}
+  .ms-header-tools{margin-left:6px!important;margin-top:1px!important;gap:3px!important}
+  .ms-header-tagline{font-size:13px!important;margin-top:2px!important;margin-bottom:5px!important}
+  .ms-nav-wrap{padding:0 8px 3px!important}
+}
+@media(max-width:560px){
+  .mark-guide-head{display:none}
+  .mark-guide-row{grid-template-columns:minmax(78px,92px) 1fr;column-gap:10px;padding:9px 0}
+  .mark-guide-measure{font-size:17px}
+  .mark-guide-action{font-size:13px}
+  .mark-guide-width{grid-column:2;font-size:15px;margin-top:2px}
+  .mark-seg-pill{font-size:12px;padding:2px 7px}
+}
+
+/* =====================================================================
+   Curved Panel (.cp-*) — piece tables, stat cards, mini diagrams,
+   floating "Mission Control" dock, and moon/rocket animations.
+   ---------------------------------------------------------------------
+   - .cp-controlGrid/.cp-lowerControls form a 2-column control layout on
+     wide screens; at <=700px .cp-lowerControls collapses to 1 column and
+     .cp-floatDock (the draggable live-preview dock) is hidden entirely.
+   - .cp-printGrid is a 3-up grid of print-option cards, collapsing to 1
+     column at <=700px.
+   ===================================================================== */
+.cp-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:8px}
+.cp-stat{background:var(--cp-pink-bg);border:1px solid var(--cp-pink-soft);border-radius:8px;padding:8px 11px}
+.cp-stat .k{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--cp-rose);font-weight:800;font-family:var(--font-sans)}
+.cp-stat .v{font-size:18px;font-weight:800;color:var(--cp-maroon);margin-top:1px;font-family:var(--font-sans)}
+.cp-stat .d{font-size:13px;color:var(--cp-muted);font-weight:600;font-family:var(--font-sans)}
+.cp-warn{background:var(--cp-amber-bg);border:1px solid var(--cp-amber-line);color:var(--cp-amber-ink);border-radius:8px;padding:9px 11px;font-size:13px;font-weight:700;margin-bottom:10px;font-family:var(--font-sans)}
+.cp-warn ul{margin:4px 0 0;padding-left:17px}
+.cp-warn li{margin:2px 0}
+.cp-symline{text-align:right;font-weight:800;font-size:14px;margin:4px 2px 0;font-family:var(--font-sans)}
+.cp-symline.yes{color:var(--cp-green)} .cp-symline.no{color:var(--cp-amber-ink)}
+.cp-diagLegend{font-size:13px;color:var(--cp-muted);font-weight:600;margin:1px 0 0;line-height:1.45;text-align:center;font-family:var(--font-sans)}
+.cp-pill{display:inline-block;background:var(--cp-pink-soft);color:var(--cp-maroon);font-weight:800;font-size:13.5px;letter-spacing:.05em;padding:4px 11px;border-radius:6px;margin:9px 0 3px;font-family:var(--font-sans)}
+.cp-prow{display:grid;grid-template-columns:minmax(0,1fr) minmax(90px,120px) minmax(130px,170px);column-gap:12px;align-items:baseline;border-bottom:1px solid var(--cp-pink-soft);padding:7px 3px;font-size:15px;font-family:var(--font-sans)}
+.cp-prow .pl{font-weight:700}
+.cp-prow .pc{font-weight:800;color:var(--cp-maroon);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;font-feature-settings:"frac" 0,"numr" 0,"dnom" 0}
+.cp-prow .ps{font-style:italic;color:var(--cp-muted);text-align:right;font-size:14px;white-space:nowrap;font-variant-numeric:tabular-nums;font-feature-settings:"frac" 0,"numr" 0,"dnom" 0}
+.cp-pnote{font-size:12.5px;color:var(--cp-muted);font-style:italic;margin:6px 3px 0;line-height:1.45;font-family:var(--font-sans)}
+.cp-miniWrap{display:flex;flex-direction:column;gap:14px;margin:10px 0 5px;width:100%}
+.cp-mini{text-align:center;width:100%;box-sizing:border-box}
+.cp-mini svg{display:block;margin:0 auto}
+.cp-mini .mlabel{font-size:14px;font-weight:800;color:var(--cp-maroon);margin-top:4px;font-family:var(--font-sans)}
+.cp-mini .mdims{font-size:13.5px;color:var(--cp-muted);font-weight:700;font-family:var(--font-sans);font-variant-numeric:tabular-nums;font-feature-settings:"frac" 0,"numr" 0,"dnom" 0}
+.cp-printNote{color:var(--cp-rose);font-weight:700;font-size:13px;margin-top:7px;font-family:var(--font-sans)}
+.cp-wrap{font-family:var(--font-sans);color:var(--cp-ink)}
+.cp-topbar{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:6px}
+.cp-title{font-size:19px;font-weight:800;color:var(--cp-maroon);margin:0}
+.cp-decToggle{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--cp-rose);white-space:nowrap;cursor:pointer;user-select:none}
+.cp-decToggle input{accent-color:var(--cp-maroon);width:15px;height:15px;cursor:pointer}
+.cp-card{background:#fff;border:1px solid var(--cp-pink-line);border-radius:10px;padding:9px 11px;box-shadow:0 1px 3px rgba(142,29,60,.05);margin-bottom:7px}
+.cp-card h2{font-size:13.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--cp-rose);margin:0 0 5px;font-weight:800;font-family:var(--font-sans)}
+.cp-row{display:flex;gap:7px;margin-bottom:5px}
+.cp-row:last-child{margin-bottom:0}
+.cp-field{flex:1;min-width:0}
+.cp-field label{display:block;font-size:13.5px;font-weight:700;color:var(--cp-ink);margin-bottom:2px;font-family:var(--font-sans);line-height:1.2}
+.cp-fi{display:flex;gap:4px;align-items:center}
+.cp-fi input[type=number]{width:55px;padding:5px 6px;font-family:var(--font-sans);font-weight:700;font-size:15px;border:1.5px solid var(--cp-pink-line);border-radius:7px;background:#fff;color:var(--cp-ink);text-align:center}
+.cp-fi select{padding:5px 4px;font-family:var(--font-sans);font-size:15px;font-weight:700;border:1.5px solid var(--cp-pink-line);border-radius:7px;background:#fff;color:var(--cp-ink);cursor:pointer}
+.cp-fi input[type=number].dec{width:100%;padding:5px 6px;font-size:15px}
+.cp-fi input[type=number]:focus,.cp-fi select:focus{outline:2px solid var(--cp-rose);outline-offset:1px;border-color:var(--cp-rose)}
+.cp-fi .inch{font-size:13px;color:var(--cp-muted);font-weight:700;margin-left:0}
+.cp-field.ghost label{color:var(--cp-pink-line)}
+.cp-field.ghost .cp-fi input[type=number],.cp-field.ghost .cp-fi select{background:var(--cp-pink-soft);color:var(--cp-pink-line);border-color:#f0dce3;pointer-events:none}
+.cp-field.ghost .cp-fi .inch{color:var(--cp-pink-line)}
+.cp-seg{display:flex;gap:6px}
+.cp-seg button{flex:1;padding:7px 5px;font-family:var(--font-sans);font-weight:700;font-size:14px;border:1.5px solid var(--cp-pink-line);background:#fff;color:var(--cp-ink);border-radius:8px;cursor:pointer}
+.cp-seg button.on{background:var(--cp-maroon);border-color:var(--cp-maroon);color:#fff}
+.cp-check{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:700;margin:4px 0 2px;cursor:pointer;font-family:var(--font-sans)}
+.cp-check input{accent-color:var(--cp-maroon);width:15px;height:15px;cursor:pointer}
+.cp-hint{font-size:13.25px;color:var(--cp-muted);margin:3px 0 0;line-height:1.32;font-family:var(--font-sans)}
+.cp-diagramCard{padding:12px 14px 10px}
+.cp-controlGrid{display:grid;grid-template-columns:1fr;gap:6px;align-items:start}
+.cp-controlGrid .cp-frameCard{grid-column:auto}
+.cp-status{border-radius:8px;padding:9px 12px;margin:8px 0;font-size:14px;font-weight:800;line-height:1.45;font-family:var(--font-sans)}
+.cp-status.ok{background:var(--status-ok-bg);border:1px solid var(--status-ok-line);color:var(--status-ok-text)}
+.cp-status.bad{background:var(--cp-amber-bg);border:1px solid var(--cp-amber-line);color:var(--cp-amber-ink)}
+.cp-resultBand{background:#fff;border:1px solid var(--cp-pink-line);border-radius:9px;overflow:hidden;margin-top:8px}
+.cp-resultLine{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start;padding:10px 13px;border-bottom:1px solid var(--cp-pink-soft)}
+.cp-resultLine:last-child{border-bottom:0}
+.cp-resultCell{min-width:0}
+.cp-resultCell.right{text-align:left}
+.cp-resultLine .rk{font-size:12.5px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;color:var(--cp-rose);margin-bottom:2px}
+.cp-resultLine .rv{font-size:16px;font-weight:800;color:var(--cp-maroon);line-height:1.4;font-variant-numeric:tabular-nums;font-feature-settings:"frac" 0,"numr" 0,"dnom" 0}
+.cp-resultLine .rv.runs{font-size:14px}
+.cp-printGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:9px;align-items:stretch}
+.cp-printCard{background:#fff;border:1px solid var(--cp-pink-line);border-radius:9px;padding:11px;display:flex;flex-direction:column;min-height:172px}
+.cp-printCard .pt{font-size:14px;font-weight:900;color:var(--cp-maroon);text-transform:uppercase;letter-spacing:.05em;line-height:1.2;min-height:17px}
+.cp-printCard .pm{font-size:13px;color:var(--cp-muted);font-weight:700;line-height:1.42;margin-top:5px;min-height:58px}
+.cp-printCard button{margin-top:auto!important;min-height:58px}
+.cp-floatDock{position:fixed;background:#fff9fb;border:1.5px solid var(--cp-dock-line);border-radius:13px;box-shadow:0 14px 34px rgba(86,24,49,.25);z-index:35;overflow:hidden;display:flex;flex-direction:column;min-width:280px;min-height:250px;max-width:calc(100vw - 20px);max-height:calc(100vh - 20px)}
+.cp-floatDock.dragging,.cp-floatDock.resizing{box-shadow:0 18px 42px rgba(86,24,49,.34)}
+.cp-floatDock.docked-left{border-radius:0 13px 13px 0;border-left:none}
+.cp-floatDock.docked-right{border-radius:13px 0 0 13px;border-right:none}
+.cp-floatHead{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 12px 10px 14px;border-bottom:1px solid #efc7d3;background:linear-gradient(135deg,var(--cp-dock-bg) 0%,#f4d9e2 100%);font-family:var(--font-sans);cursor:grab;user-select:none;touch-action:none;flex:0 0 auto}
+.cp-floatDock.dragging .cp-floatHead{cursor:grabbing}
+.cp-missionBrand{display:flex;align-items:center;gap:10px;min-width:0;flex:1 1 auto}
+.cp-liveDot{width:10px;height:10px;border-radius:50%;flex:0 0 auto;box-shadow:0 0 0 4px rgba(47,154,98,.10)}
+.cp-missionText{min-width:0;flex:1 1 auto}
+.cp-missionTitle{font-family:var(--font-mono);font-size:14px;font-weight:700;color:var(--cp-dock-ink);letter-spacing:.045em;text-transform:uppercase;line-height:1.2;white-space:normal;overflow:visible;text-overflow:clip}
+.cp-missionFeed{font-family:var(--font-sans);font-size:12px;font-weight:900;color:var(--cp-dock-accent);letter-spacing:.10em;text-transform:uppercase;line-height:1.25;margin-top:3px}
+.cp-floatClose{border:none;background:transparent;color:#a85870;font-size:27px;line-height:1;cursor:pointer;padding:2px 5px;border-radius:7px;font-family:var(--font-sans);font-weight:900;flex:0 0 auto}
+.cp-floatClose:hover{background:rgba(142,29,60,.09);color:var(--cp-dock-ink)}
+.cp-floatNav{display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;border-bottom:1px solid #eab9c8;background:#fff6f8;flex:0 0 auto}
+.cp-floatNav button{border:none;border-right:1px solid #efd0d9;background:transparent;color:var(--cp-maroon);font-family:var(--font-sans);font-size:13px;font-weight:800;padding:9px 6px;cursor:pointer;white-space:nowrap}
+.cp-floatNav button:last-child{border-right:none}
+.cp-floatNav button:hover{background:#f8e3e9;color:var(--cp-maroon-dark)}
+.cp-floatBody{padding:10px 10px 8px;overflow:auto;min-height:0;flex:1 1 auto;background:#fff;position:relative}
+.cp-floatBody svg{background:#fff;border:1px solid #efced8;border-radius:8px}
+.cp-floatMeta{font-size:12.5px;color:#986274;font-weight:700;line-height:1.4;font-family:var(--font-sans);margin-top:7px}
+.cp-resizeHandle{position:absolute;width:26px;height:26px;bottom:0;z-index:3;cursor:nwse-resize;touch-action:none;opacity:.8}
+.cp-resizeHandle.right{right:0;background:linear-gradient(135deg,transparent 48%,var(--cp-dock-accent-soft) 49%,var(--cp-dock-accent-soft) 55%,transparent 56%,transparent 66%,var(--cp-dock-accent) 67%,var(--cp-dock-accent) 73%,transparent 74%)}
+.cp-resizeHandle.left{left:0;cursor:nesw-resize;background:linear-gradient(225deg,transparent 48%,var(--cp-dock-accent-soft) 49%,var(--cp-dock-accent-soft) 55%,transparent 56%,transparent 66%,var(--cp-dock-accent) 67%,var(--cp-dock-accent) 73%,transparent 74%)}
+.cp-dockTab{position:fixed;z-index:36;display:flex;align-items:center;gap:8px;background:linear-gradient(180deg,var(--cp-dock-bg),#f1d5df);border:1px solid var(--cp-dock-line);color:var(--cp-dock-ink);box-shadow:0 8px 24px rgba(86,24,49,.24);padding:12px 8px;cursor:pointer;font-family:var(--font-sans);font-size:13.5px;font-weight:900;letter-spacing:.075em;text-transform:uppercase;writing-mode:vertical-rl;text-orientation:mixed;user-select:none;line-height:1}
+.cp-dockTab.left{left:0;border-left:none;border-radius:0 10px 10px 0}
+.cp-dockTab.right{right:0;border-right:none;border-radius:10px 0 0 10px}
+.cp-dockTab .cp-liveDot{width:10px;height:10px;box-shadow:none}
+.cp-controlSection{padding:0 0 6px}
+.cp-controlSection + .cp-controlSection{border-top:1px solid var(--cp-pink-soft);padding-top:8px}
+.cp-controlSection:last-child{padding-bottom:0}
+.cp-edgeFields{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+.cp-lowerControls{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:12px;border-top:1px solid var(--cp-pink-soft);padding-top:8px}
+.cp-lowerControls .cp-controlSection{padding:0;border-top:none}
+.cp-lowerControls .cp-controlSection + .cp-controlSection{padding-top:0;border-top:none;border-left:1px solid var(--cp-pink-soft);padding-left:12px}
+@keyframes moonFlameFlicker{0%,100%{transform:scaleY(.92) scaleX(1);opacity:.7}35%{transform:scaleY(1.08) scaleX(.93);opacity:1}68%{transform:scaleY(.98) scaleX(1.05);opacity:.82}}
+@keyframes moonTwinkle{0%,100%{opacity:.18;transform:scale(.75)}50%{opacity:.95;transform:scale(1.18)}}
+@keyframes moonSparkDrift{0%{opacity:0;transform:translateY(0) scale(.7)}30%{opacity:.8}100%{opacity:0;transform:translateY(18px) scale(.25)}}
+.moon-flame{transform-box:fill-box;transform-origin:center top;animation:moonFlameFlicker 1.35s ease-in-out infinite}
+.moon-flame.mid{animation-duration:1.05s;animation-delay:-.35s}.moon-flame.core{animation-duration:.78s;animation-delay:-.12s}
+.moon-star{transform-box:fill-box;transform-origin:center;animation:moonTwinkle 2.8s ease-in-out infinite}
+.moon-spark{transform-box:fill-box;transform-origin:center;animation:moonSparkDrift 1.8s ease-out infinite}
+.nav-rocket{width:14px!important;height:19px!important;max-width:14px!important;max-height:19px!important;display:block;flex:0 0 14px;overflow:visible}
+.nav-rocket .trail{transform-box:fill-box;transform-origin:center top;animation:moonFlameFlicker 1.25s ease-in-out infinite}
+.nav-rocket .spark{animation:moonTwinkle 2.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@media(prefers-reduced-motion:reduce){.moon-flame,.moon-star,.moon-spark,.nav-rocket .trail,.nav-rocket .spark{animation:none!important}}
+.cp-zoneMap{width:100%;margin:10px 0 4px}
+@media(max-width:700px){
+  .cp-row{flex-wrap:wrap}
+  .cp-field{min-width:125px}
+  .cp-edgeFields{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cp-lowerControls{grid-template-columns:1fr;gap:0}
+  .cp-lowerControls .cp-controlSection + .cp-controlSection{border-left:none;border-top:1px solid var(--cp-pink-soft);padding-left:0;padding-top:8px;margin-top:6px}
+  .cp-printGrid{grid-template-columns:1fr}
+  .cp-printCard{min-height:0}
+  .cp-floatDock{display:none}
+  .cp-prow{grid-template-columns:minmax(0,1fr) minmax(82px,105px)}
+  .cp-prow .ps{grid-column:2;text-align:right;margin-top:2px}
+  .cp-resultLine{grid-template-columns:1fr;gap:8px}
+  .cp-resultCell.right{text-align:left}
+}
+
+/* =====================================================================
+   Boxed Corner (.bc-*) — same structure as Curved Panel above, with the
+   "pumpkin" palette. Same 700px breakpoint behavior: 2-column controls
+   collapse to 1 column, floating dock hidden.
+   ===================================================================== */
+.bc-wrap{font-family:var(--font-sans);color:var(--bc-ink)}
+.bc-topbar{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:6px}
+.bc-decToggle{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--bc-amber);white-space:nowrap;cursor:pointer;user-select:none}
+.bc-decToggle input{accent-color:var(--bc-pumpkin);width:15px;height:15px;cursor:pointer}
+.bc-card{background:#fff;border:1px solid var(--bc-line);border-radius:10px;padding:10px 12px;box-shadow:0 1px 3px rgba(168,79,20,.06);margin-bottom:8px}
+.bc-card h2{font-size:13.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--bc-amber);margin:0 0 7px;font-weight:900;font-family:var(--font-sans)}
+.bc-controlSection{padding:0 0 7px}.bc-controlSection+.bc-controlSection{border-top:1px solid var(--bc-soft);padding-top:9px}.bc-controlSection:last-child{padding-bottom:0}
+.bc-row{display:flex;gap:7px;margin-bottom:6px}.bc-row:last-child{margin-bottom:0}
+.bc-field{flex:1;min-width:0}.bc-field label{display:block;font-size:13.5px;font-weight:800;color:var(--bc-ink);margin-bottom:3px;line-height:1.2}
+.bc-field.ghost label{color:#bc9b84}.bc-field.ghost .bc-fi input,.bc-field.ghost .bc-fi select{background:#f8ede5;color:#b39480;border-color:#ead7c9;pointer-events:none}
+.bc-fi{display:flex;gap:4px;align-items:center}.bc-fi input[type=number]{width:55px;padding:5px 6px;font-family:var(--font-sans);font-weight:800;font-size:15px;border:1.5px solid var(--bc-line);border-radius:7px;background:#fff;color:var(--bc-ink);text-align:center}
+.bc-fi select{padding:5px 4px;font-family:var(--font-sans);font-size:15px;font-weight:800;border:1.5px solid var(--bc-line);border-radius:7px;background:#fff;color:var(--bc-ink);cursor:pointer}
+.bc-fi input[type=number].dec{width:100%}.bc-fi input:focus,.bc-fi select:focus{outline:2px solid var(--bc-amber);outline-offset:1px;border-color:var(--bc-amber)}
+.bc-fi .unit{font-size:13px;color:var(--bc-muted);font-weight:800}
+.bc-seg{display:flex;gap:6px}.bc-seg button{flex:1;padding:8px 6px;font-family:var(--font-sans);font-weight:800;font-size:14px;border:1.5px solid var(--bc-line);background:#fff;color:var(--bc-ink);border-radius:8px;cursor:pointer}.bc-seg button.on{background:var(--bc-pumpkin);border-color:var(--bc-pumpkin);color:#fff}
+.bc-hint{font-size:13.25px;color:var(--bc-muted);margin:4px 0 0;line-height:1.35;font-weight:650}
+.bc-lowerControls{display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid var(--bc-soft);padding-top:9px}.bc-lowerControls .bc-controlSection{padding:0;border-top:none}.bc-lowerControls .bc-controlSection+.bc-controlSection{padding:0 0 0 12px;border-top:none;border-left:1px solid var(--bc-soft)}
+.bc-status{border-radius:8px;padding:9px 12px;margin:8px 0;font-size:14px;font-weight:800;line-height:1.45}.bc-status.ok{background:var(--status-ok-bg);border:1px solid var(--status-ok-line);color:var(--status-ok-text)}.bc-status.bad{background:var(--bc-warn-bg);border:1px solid var(--bc-warn-line);color:var(--bc-warn-ink)}
+.bc-warn{background:var(--bc-warn-bg);border:1px solid var(--bc-warn-line);color:var(--bc-warn-ink);border-radius:8px;padding:9px 11px;font-size:13px;font-weight:700;margin-bottom:10px}.bc-warn ul{margin:4px 0 0;padding-left:17px}
+.bc-diagramCard{padding:12px 14px 10px}.bc-diagramLegend{font-size:13px;color:var(--bc-muted);font-weight:700;margin:2px 0 0;line-height:1.45;text-align:center}
+.bc-resultBand{background:#fff;border:1px solid var(--bc-line);border-radius:9px;overflow:hidden;margin-top:8px}.bc-resultLine{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start;padding:10px 13px;border-bottom:1px solid var(--bc-soft)}.bc-resultLine:last-child{border-bottom:0}.bc-resultCell{min-width:0}.bc-resultLine .rk{font-size:12.5px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;color:var(--bc-amber);margin-bottom:2px}.bc-resultLine .rv{font-size:16px;font-weight:900;color:var(--bc-pumpkin-dark);line-height:1.42;font-variant-numeric:tabular-nums}.bc-resultLine .rv.small{font-size:14px;color:var(--bc-ink)}
+.bc-checkGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:8px}.bc-check{background:var(--bc-cream);border:1px solid var(--bc-soft);border-radius:8px;padding:7px 9px}.bc-check .k{font-size:11.5px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--bc-amber)}.bc-check .v{font-family:var(--font-mono);font-size:15px;font-weight:500;color:var(--bc-pumpkin-dark);margin-top:2px}
+.bc-printGrid{display:grid;grid-template-columns:1fr;gap:9px;margin-top:9px}.bc-printCard{background:#fff;border:1px solid var(--bc-line);border-radius:9px;padding:11px;display:flex;flex-direction:column}.bc-printCard .pt{font-size:14px;font-weight:900;color:var(--bc-pumpkin-dark);text-transform:uppercase;letter-spacing:.05em}.bc-printCard .pm{font-size:13px;color:var(--bc-muted);font-weight:700;line-height:1.42;margin-top:5px}
+.bc-stabGrid{display:grid;grid-template-columns:minmax(165px,.8fr) auto minmax(225px,1.2fr);gap:10px;align-items:end;margin-top:10px}.bc-stabPrint label{display:block;font-size:13.5px;font-weight:800;color:var(--bc-ink);margin-bottom:3px}.bc-matchSa{height:34px;padding:0 12px;border:1.5px solid var(--bc-line);border-radius:8px;background:#fff7f0;color:var(--bc-pumpkin-dark);font-family:var(--font-sans);font-size:13px;font-weight:900;cursor:pointer;white-space:nowrap}.bc-matchSa:hover{background:var(--bc-soft)}
+.bc-floatDock{position:fixed;background:var(--bc-cream);border:1.5px solid var(--bc-line);border-radius:13px;box-shadow:0 14px 34px rgba(104,48,10,.25);z-index:35;overflow:hidden;display:flex;flex-direction:column;min-width:280px;min-height:250px;max-width:calc(100vw - 20px);max-height:calc(100vh - 20px)}
+.bc-floatDock.dragging,.bc-floatDock.resizing{box-shadow:0 18px 42px rgba(104,48,10,.34)}.bc-floatDock.docked-left{border-radius:0 13px 13px 0;border-left:none}.bc-floatDock.docked-right{border-radius:13px 0 0 13px;border-right:none}
+.bc-floatHead{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 12px 10px 14px;border-bottom:1px solid var(--bc-line);background:linear-gradient(135deg,var(--bc-cream) 0%,#f3d5bd 100%);cursor:grab;user-select:none;touch-action:none;flex:0 0 auto}.bc-floatDock.dragging .bc-floatHead{cursor:grabbing}
+.bc-missionBrand{display:flex;align-items:center;gap:10px;min-width:0;flex:1}.bc-liveDot{width:10px;height:10px;border-radius:50%;flex:0 0 auto;box-shadow:0 0 0 4px rgba(47,154,98,.10)}.bc-missionTitle{font-family:var(--font-mono);font-size:14px;font-weight:700;color:var(--bc-pumpkin-dark);letter-spacing:.045em;text-transform:uppercase}.bc-missionFeed{font-size:12px;font-weight:900;color:var(--bc-amber);letter-spacing:.10em;text-transform:uppercase;margin-top:3px}
+.bc-floatClose{border:none;background:transparent;color:var(--bc-amber);font-size:27px;line-height:1;cursor:pointer;padding:2px 5px;border-radius:7px;font-weight:900}.bc-floatClose:hover{background:rgba(168,79,20,.09);color:var(--bc-pumpkin-dark)}
+.bc-floatNav{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid var(--bc-line);background:#fff5ed}.bc-floatNav button{border:none;border-right:1px solid #efd4be;background:transparent;color:var(--bc-pumpkin);font-family:var(--font-sans);font-size:13px;font-weight:800;padding:9px 6px;cursor:pointer}.bc-floatNav button:last-child{border-right:none}.bc-floatNav button:hover{background:#f7e2d2}
+.bc-floatBody{padding:10px 10px 8px;overflow:auto;min-height:0;flex:1;background:#fff;position:relative}.bc-floatBody svg{background:#fff;border:1px solid var(--bc-soft);border-radius:8px}.bc-floatMeta{font-size:12.5px;color:var(--bc-muted);font-weight:700;line-height:1.4;margin-top:7px}
+.bc-resizeHandle{position:absolute;width:26px;height:26px;bottom:0;z-index:3;cursor:nwse-resize;touch-action:none;opacity:.8}.bc-resizeHandle.right{right:0;background:linear-gradient(135deg,transparent 48%,var(--bc-dock-accent-soft) 49%,var(--bc-dock-accent-soft) 55%,transparent 56%,transparent 66%,var(--bc-amber) 67%,var(--bc-amber) 73%,transparent 74%)}.bc-resizeHandle.left{left:0;cursor:nesw-resize;background:linear-gradient(225deg,transparent 48%,var(--bc-dock-accent-soft) 49%,var(--bc-dock-accent-soft) 55%,transparent 56%,transparent 66%,var(--bc-amber) 67%,var(--bc-amber) 73%,transparent 74%)}
+.bc-dockTab{position:fixed;z-index:36;display:flex;align-items:center;gap:8px;background:linear-gradient(180deg,var(--bc-cream),#f1d5bf);border:1px solid var(--bc-line);color:var(--bc-pumpkin-dark);box-shadow:0 8px 24px rgba(104,48,10,.24);padding:12px 8px;cursor:pointer;font-family:var(--font-sans);font-size:13.5px;font-weight:900;letter-spacing:.075em;text-transform:uppercase;writing-mode:vertical-rl;user-select:none;line-height:1}.bc-dockTab.left{left:0;border-left:none;border-radius:0 10px 10px 0}.bc-dockTab.right{right:0;border-right:none;border-radius:10px 0 0 10px}.bc-dockTab .bc-liveDot{box-shadow:none}
+@media(max-width:700px){.bc-row{flex-wrap:wrap}.bc-field{min-width:125px}.bc-lowerControls{grid-template-columns:1fr;gap:0}.bc-lowerControls .bc-controlSection+.bc-controlSection{border-left:none;border-top:1px solid var(--bc-soft);padding-left:0;padding-top:9px;margin-top:7px}.bc-resultLine{grid-template-columns:1fr;gap:8px}.bc-checkGrid{grid-template-columns:repeat(2,1fr)}.bc-stabGrid{grid-template-columns:1fr}.bc-matchSa{width:100%}.bc-floatDock{display:none}}

@@ -201,3 +201,10 @@ These are confirmed future features to add after the refactor is complete.
   definition. Flag any orphaned references. Should run as part of the lint
   step or as a standalone npm script (e.g. npm run check-vars). Implement
   after Pass 2 is complete and the full :root token set is established.
+
+> Note: moonshot-consolidated-reference.css in the project root is a
+> designer-authored style reference file. Claude Code should read this file
+> before beginning Pass 4 tab extractions and use it as a guide when converting
+> inline styles to CSS classes. Styles from this file should be reconciled into
+> moonshot.css as each tab is extracted — not imported separately. This file is
+> reference only — do not import or deploy it.
