@@ -189,3 +189,10 @@ These are confirmed future features to add after the refactor is complete.
   Rule of thumb: if two or more diagrams share it, it belongs in the design
   system. If only one diagram uses it, it lives in that component but still
   references design system primitives for color, weight, and typography.
+
+  - **CSS custom property audit script** — Add a small Node.js script
+  (e.g. scripts/check-css-vars.js) that reads moonshot.css, finds every
+  var(--something) reference, and confirms each one has a matching :root
+  definition. Flag any orphaned references. Should run as part of the lint
+  step or as a standalone npm script (e.g. npm run check-vars). Implement
+  after Pass 2 is complete and the full :root token set is established.
