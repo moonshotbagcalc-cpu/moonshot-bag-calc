@@ -44,9 +44,77 @@ Unit mode is module-level mutable state: `let CURRENT_UNIT` in `App.jsx`, set on
 
 Each major section has its own color/theme object passed as a `th` prop into shared components: `T` (per-tab themes for Lid/Gusset/Piping/Bottle Pocket), `DT` (SVG diagram color tokens), `CP` (Curved Panel "maroon" palette), `BC`/`BC_THEME` (Boxed Corner "pumpkin" palette).
 
-### Navigation
+## Navigation Structure (Revised — Pass 5 Target)
 
-`NAV_GROUPS` (near the bottom of `App.jsx`) defines the two-level nav: groups (Basic, Advanced, Pockets, Trims & Straps) each containing pages with `id`/`label`/`color`, with `coming:true` for placeholder tabs rendered via `ComingSoon`. `navGroupForPage` maps a page id back to its group. `MoonshotBagCalc` remembers the last-visited page per group (`lastPageByGroup`) and per-tab scroll position (`scrollPositions`), and has separate mobile-collapse behavior for the sticky header (`isPhoneNav`/`mobileNavCollapsed`).
+The nav has been redesigned from Basic/Advanced/Pockets/Trims to an
+anatomy-based structure that mirrors how bag makers actually work:
+bottom-up, then finishing.
+
+### Final Nav Groups and Entries
+
+**Sides & Panels**
+- Curved Panels (id: "curved-panel") — EXISTS: src/tabs/CurvedPanel.jsx
+- Gussets (id: "gusset") — EXISTS: src/tabs/Gusset.jsx
+- Tapered Panels (id: "tapered-panels") — COMING SOON: stub needed
+
+**Bottoms**
+- Shaped Bottoms (id: "shaped-bottoms") — REWORK: src/tabs/LidBottom.jsx
+  (rename file to ShapedBottoms.jsx, rework calculator — see Flagged for Later)
+- Boxed Bottoms (id: "boxed-bottoms") — EXISTS: src/tabs/BoxedCorner.jsx
+- Folded Bottoms (id: "folded-bottoms") — COMING SOON: replaces FoldTuck.jsx
+  (rename stub to FoldedBottoms.jsx)
+
+**Trims & Pockets**
+- Piping (id: "piping") — EXISTS: src/tabs/Piping.jsx
+- Accordion Pocket (id: "accordion") — EXISTS: src/tabs/AccordionPocket.jsx
+- Zipper Pocket (id: "zipper-pocket") — COMING SOON: replaces
+  ZipperedPocket.jsx (rename stub to ZipperPocket.jsx)
+- Welt Pocket (id: "welt-pocket") — COMING SOON: src/tabs/WeltPocket.jsx
+
+**Handles & Hardware**
+- Handles & Straps (id: "handles-straps") — COMING SOON: stub needed
+- Purse Feet Placement (id: "purse-feet") — COMING SOON: stub needed
+- Rivet Guides (id: "rivet-guides") — COMING SOON: stub needed
+
+**Complete Bags**
+- Two Panel Zipper Pouch (id: "zipper-pouch") — COMING SOON: stub needed
+- Grocery Tote (id: "grocery-tote") — COMING SOON: stub needed
+
+### Stub Files Needed for Pass 5
+
+Create these in src/tabs/ before wiring nav-config.js:
+- src/tabs/TaperedPanels.jsx
+- src/tabs/FoldedBottoms.jsx (rename/replace FoldTuck.jsx)
+- src/tabs/ZipperPocket.jsx (rename/replace ZipperedPocket.jsx)
+- src/tabs/HandlesStraps.jsx
+- src/tabs/PurseFeet.jsx
+- src/tabs/RivetGuides.jsx
+- src/tabs/ZipperPouch.jsx
+- src/tabs/GroceryTote.jsx
+
+### Files to Rename in Pass 5
+- src/tabs/FoldTuck.jsx → src/tabs/FoldedBottoms.jsx
+- src/tabs/ZipperedPocket.jsx → src/tabs/ZipperPocket.jsx
+- src/tabs/LidBottom.jsx → src/tabs/ShapedBottoms.jsx
+  (rename only — rework of calculator content is Flagged for Later)
+- src/tabs/BoxedCorner.jsx → src/tabs/BoxedBottoms.jsx
+  (rename only — no content changes)
+- src/tabs/TrimsStraps.jsx → REMOVE (replaced by individual stubs above)
+
+### Pass 5 Instructions for Claude Code
+
+1. Create all stub files listed above using the ComingSoon component pattern.
+2. Rename files as listed above, updating all imports accordingly.
+3. Create src/nav-config.js with the full anatomy-based nav structure above.
+4. Update App.jsx to import from nav-config.js and render tabs dynamically.
+5. Remove NAV_GROUPS and all hardcoded nav logic from App.jsx.
+6. Run npm run build and npm run lint to confirm no regressions.
+7. Do not rework any calculator content — stubs and renames only.
+
+> Note: Prior to Pass 5, nav was defined as NAV_GROUPS in App.jsx with
+> navGroupForPage, lastPageByGroup, scrollPositions, and mobile collapse
+> behavior (isPhoneNav/mobileNavCollapsed). These move to nav-config.js
+> and NavBar.jsx in Pass 5.
 
 ### Print/pattern output
 
@@ -207,6 +275,34 @@ These are confirmed future features to add after the refactor is complete.
   definition. Flag any orphaned references. Should run as part of the lint
   step or as a standalone npm script (e.g. npm run check-vars). Implement
   after Pass 2 is complete and the full :root token set is established.
+
+  - **Shaped Bottoms rework** — LidBottom.jsx (renamed ShapedBottoms.jsx) needs
+  a full rework to support: rectangle, rounded rectangle, and oval bottom
+  shapes; 2-side vs 4-side panel count; optional tapered sides. This is a
+  significant new calculator, not just a rename.
+
+- **Tapered Panels calculator** — New calculator for side and gusset panels
+  that taper as the bag grows in height. Should support 2 or 4 panels, straight
+  or curved taper, and connect mathematically to Shaped Bottoms dimensions.
+  Distinct from Curved Panels which handles front/back face panels only.
+
+- **Bag Project / Design Cart** — A persistent session layer where users can
+  save their bag design measurements (panel dimensions, bottom size, side panel
+  widths, etc.) and import them into other calculator tabs automatically. For
+  example: design a curved panel, then open Accordion Pocket and have the panel
+  dimensions already populated. Requires a shared state architecture across
+  tabs. Implement only after all individual calculators are complete and stable.
+
+- **Yardage Calculator** — A dedicated calculator tab that takes completed
+  pattern piece dimensions (potentially imported from the Design Cart) and
+  calculates total fabric yardage needed, accounting for fabric width, grain
+  direction, and seam allowances. Should support multiple fabric types
+  (exterior, lining, interfacing). Add as a tab — likely under a new group
+  or at the top level as a utility. Plan placement in nav when feature is
+  scoped.
+
+- **Grocery Tote calculator** — Complete bag calculator for a standard grocery
+  tote. Joins Two Panel Zipper Pouch in the Complete Bags group.
 
 > Note: moonshot-consolidated-reference.css in the project root is a
 > designer-authored style reference file. Claude Code should read this file

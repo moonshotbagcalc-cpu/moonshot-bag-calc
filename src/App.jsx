@@ -4,16 +4,7 @@ import {
 } from "./utils/formatting.js";
 import { GA_MEASUREMENT_ID } from "./utils/constants.js";
 import "./moonshot.css";
-import GussetPage from "./tabs/Gusset.jsx";
-import PipingPage from "./tabs/Piping.jsx";
-import LidPage from "./tabs/LidBottom.jsx";
-import AccordionPocketPage from "./tabs/AccordionPocket.jsx";
-import CurvedPanelPage from "./tabs/CurvedPanel.jsx";
-import BoxedCornerPage from "./tabs/BoxedCorner.jsx";
-import FoldTuckPage from "./tabs/FoldTuck.jsx";
-import ZipperedPocketPage from "./tabs/ZipperedPocket.jsx";
-import WeltPocketPage from "./tabs/WeltPocket.jsx";
-import TrimsStrapsPage from "./tabs/TrimsStraps.jsx";
+import { NAV_GROUPS, navGroupForPage } from "./nav-config.js";
 
 // ── Google Analytics (GA4) ──────────────────────────────────────────────────
 // Basic anonymous page tracking only. Do not send user-entered calculator values.
@@ -98,43 +89,6 @@ function ContactFooter() {
 
 
 // ══════════════════════════════════════════════════════════════════════════════
-const NAV_GROUPS = [
-  {
-    id:"basic", label:"Basic", color:"#7658b3",
-    pages:[
-      {id:"lid", label:"Lid & Bottom", color:"#5a2da0"},
-      {id:"gusset", label:"Gusset", color:"#1a6e3a"},
-      {id:"piping", label:"Piping", color:"#8e1a9e"},
-    ],
-  },
-  {
-    id:"advanced", label:"Advanced", color:"#9a3e52",
-    pages:[
-      {id:"advanced", label:"Curved Panel", color:"#7a1a2e"},
-      {id:"boxed", label:"Boxed Corner", color:"#a84f14"},
-      {id:"foldtuck", label:"Fold & Tuck", color:"#9a4968", coming:true},
-    ],
-  },
-  {
-    id:"pockets", label:"Pockets", color:"#356b9b",
-    pages:[
-      {id:"bottle", label:"Accordion", color:"#1a4a7a"},
-      {id:"zippered", label:"Zippered", color:"#176b78", coming:true},
-      {id:"welt", label:"Welt", color:"#3a5c99", coming:true},
-    ],
-  },
-  {
-    id:"trims", label:"Trims & Straps", color:"#167a73",
-    pages:[
-      {id:"trims", label:"Trims & Straps", color:"#167a73", coming:true},
-    ],
-  },
-];
-
-function navGroupForPage(pageId) {
-  return NAV_GROUPS.find(group => group.pages.some(item => item.id === pageId)) || NAV_GROUPS[0];
-}
-
 function NavRocketIcon() {
   return (
     <svg className="nav-rocket" viewBox="0 0 18 24" fill="none" aria-hidden="true">
@@ -172,19 +126,19 @@ function IntroCard() {
 }
 
 export default function MoonshotBagCalc() {
-  const [page, setPage] = useState("lid");
+  const [page, setPage] = useState("shaped-bottoms");
   const [unitMode, setUnitMode] = useState("imperial");
   setCurrentUnit(unitMode);
   const scrollPositions = useRef({});
-  const visitedTabs     = useRef(new Set(["lid"]));
-  const lastPageByGroup = useRef({ basic:"lid", advanced:"advanced", pockets:"bottle", trims:"trims" });
+  const visitedTabs     = useRef(new Set(["shaped-bottoms"]));
+  const lastPageByGroup = useRef(Object.fromEntries(NAV_GROUPS.map(g => [g.id, g.pages[0].id])));
   const [isPhoneNav,setIsPhoneNav]=useState(()=>typeof window!=="undefined" ? window.matchMedia("(max-width: 600px)").matches : false);
   const [mobileNavCollapsed,setMobileNavCollapsed]=useState(false);
   const mobileLastScroll=useRef(0);
 
   // ── Page-reactive background patterns ──────────────────────────────────────
   const PAGE_PATTERNS = {
-    lid: {
+    "shaped-bottoms": {
       color: "#f0ecfc",
       img: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Cline x1='0' y1='44' x2='44' y2='0' stroke='%235a2da0' stroke-width='0.7' opacity='0.09'/%3E%3C/svg%3E")`,
     },
@@ -196,33 +150,29 @@ export default function MoonshotBagCalc() {
       color: "#f8eefb",
       img: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Cline x1='11' y1='0' x2='11' y2='22' stroke='%238e1a9e' stroke-width='0.6' opacity='0.1'/%3E%3C/svg%3E")`,
     },
-    bottle: {
+    accordion: {
       color: "#eaf2fc",
       img: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='20'%3E%3Cpolyline points='0%2C10%2010%2C0%2020%2C10%2030%2C0%2040%2C10' fill='none' stroke='%231a4a7a' stroke-width='0.7' opacity='0.1'/%3E%3C/svg%3E")`,
     },
-    advanced: {
+    "curved-panel": {
       color: "#f2e8ea",
       img: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Ccircle cx='11' cy='11' r='1.5' fill='%237a1a2e' opacity='0.11'/%3E%3C/svg%3E")`,
     },
-    boxed: {
+    "boxed-bottoms": {
       color: "#faf0e8",
       img: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Cpath d='M0 15 H30 M15 0 V30' stroke='%23a84f14' stroke-width='0.55' opacity='0.08'/%3E%3C/svg%3E")`,
     },
-    foldtuck: {
+    "folded-bottoms": {
       color: "#f7edf1",
       img: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpath d='M0 24 L8 16 L16 24 L24 16 L32 24' fill='none' stroke='%239a4968' stroke-width='0.65' opacity='0.09'/%3E%3C/svg%3E")`,
     },
-    zippered: {
+    "zipper-pocket": {
       color: "#eaf6f7",
       img: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cline x1='12' y1='0' x2='12' y2='24' stroke='%23176b78' stroke-width='0.55' opacity='0.09'/%3E%3C/svg%3E")`,
     },
-    welt: {
+    "welt-pocket": {
       color: "#eef1f8",
       img: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='18'%3E%3Cline x1='0' y1='9' x2='36' y2='9' stroke='%233a5c99' stroke-width='0.65' opacity='0.09'/%3E%3C/svg%3E")`,
-    },
-    trims: {
-      color: "#eaf7f5",
-      img: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26'%3E%3Ccircle cx='13' cy='13' r='1.4' fill='%23167a73' opacity='0.1'/%3E%3C/svg%3E")`,
     },
   };
 
@@ -258,7 +208,7 @@ export default function MoonshotBagCalc() {
   useEffect(()=>{ if(isPhoneNav)setMobileNavCollapsed(false); },[page,isPhoneNav]);
 
   useEffect(() => {
-    const p = PAGE_PATTERNS[page] || PAGE_PATTERNS.lid;
+    const p = PAGE_PATTERNS[page] || PAGE_PATTERNS["shaped-bottoms"];
     document.body.style.transition = "background-color 0.4s ease";
     document.body.style.backgroundColor = p.color;
     document.body.style.backgroundImage = p.img;
@@ -399,19 +349,17 @@ export default function MoonshotBagCalc() {
       </div>
 
       {/* ── Intro (shows only on first tab) ── */}
-      {page==="lid" && <IntroCard />}
+      {page==="shaped-bottoms" && <IntroCard />}
 
       {/* ── Page content — always mounted, shown/hidden to preserve state ── */}
-      <div style={{display:page==="lid"      ?"block":"none"}}><LidPage /></div>
-      <div style={{display:page==="gusset"   ?"block":"none"}}><GussetPage /></div>
-      <div style={{display:page==="piping"   ?"block":"none"}}><PipingPage /></div>
-      <div style={{display:page==="bottle"   ?"block":"none"}}><AccordionPocketPage /></div>
-      <div style={{display:page==="advanced" ?"block":"none"}}><CurvedPanelPage /></div>
-      <div style={{display:page==="boxed"     ?"block":"none"}}><BoxedCornerPage /></div>
-      <div style={{display:page==="foldtuck"  ?"block":"none"}}><FoldTuckPage /></div>
-      <div style={{display:page==="zippered"  ?"block":"none"}}><ZipperedPocketPage /></div>
-      <div style={{display:page==="welt"      ?"block":"none"}}><WeltPocketPage /></div>
-      <div style={{display:page==="trims"     ?"block":"none"}}><TrimsStrapsPage /></div>
+      {NAV_GROUPS.flatMap(group => group.pages).map(item => {
+        const TabComponent = item.component;
+        return (
+          <div key={item.id} style={{display:page===item.id?"block":"none"}}>
+            <TabComponent />
+          </div>
+        );
+      })}
 
       {/* ── Footer ── */}
       <ContactFooter />
