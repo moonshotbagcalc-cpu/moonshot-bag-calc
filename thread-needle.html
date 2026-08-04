@@ -5,6 +5,42 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Moonshot Bagmaker's Thread + Needle Guide</title>
+<!-- ── Google Analytics (GA4) ───────────────────────────────────────────────
+     ⚠ A PASTED SNIPPET, AND IT HAS TO BE. This file lives in public/ and is
+     copied VERBATIM into dist/ -- no Vite variable reaches it, no build step
+     rewrites it -- so it cannot import src/utils/analyticsInit.js the way the
+     three JS entries do. It is the one place the measurement id and the host
+     allowlist are duplicated.
+
+     ⚠ KEEP IN SYNC BY HAND WITH src/utils/constants.js (GA_MEASUREMENT_ID) and
+     src/utils/analyticsInit.js (GA_HOSTS). If either changes, change it here
+     too -- nothing will fail loudly if you don't; this page just goes quiet or
+     reports to the wrong property.
+
+     THE HOST GUARD IS THE REASON THE TAG IS INJECTED RATHER THAN WRITTEN AS A
+     STATIC <script src>: a static tag would fetch gtag on every host, which is
+     exactly the localhost/staging reporting the guard exists to stop.
+
+     curved-panel.html deliberately gets NO analytics -- it is on CLAUDE.md's
+     do-not-edit list and nothing in the nav points at it. -->
+<script>
+(function(){
+  var GA_ID = "G-LX2KQHNYM9";
+  var GA_HOSTS = ["moonshotbag.com", "www.moonshotbag.com"];
+  if (GA_HOSTS.indexOf(window.location.hostname) === -1) return;
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+
+  var s = document.createElement("script");
+  s.async = true;
+  s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
+  document.head.appendChild(s);
+
+  window.gtag("js", new Date());
+  window.gtag("config", GA_ID, { send_page_view: true, anonymize_ip: true });
+})();
+</script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=DM+Mono:wght@400;500&display=swap">
 <style>
 *,*::before,*::after{box-sizing:border-box}
