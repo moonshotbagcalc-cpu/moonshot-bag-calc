@@ -8,15 +8,56 @@
          chose to read. Brand + descriptor, per Abby's naming ruling 2026-07-30.
          The repo, the base path and the deploy target keep the old slug on
          purpose -- the domains point at them and nothing internal is renamed. -->
-    <title>Moonshot Bag Lab — The custom bag pattern calculator</title>
-    <meta name="description" content="Moonshot Bag Lab — the custom bag pattern calculator. Dream it. Size it. Sew it." />
-    <script type="module" crossorigin src="/assets/main-CLMEGa9Q.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/moonshot-Yi7v8PMD.js">
-    <link rel="modulepreload" crossorigin href="/assets/InfoPill-CWZNdUu3.js">
-    <link rel="stylesheet" crossorigin href="/assets/moonshot-D2OybEyc.css">
+    <!-- ⚡ SEO-HEAD-AND-HERO §1 (✍ Abby 2026-09-12, A243): the page's own words, in the HTML,
+         before React boots. Her strings, verbatim — the title keeps the SITE's name (A242(a)).
+         ~~"Moonshot Bag Lab — The custom bag pattern calculator"~~ ·
+         ~~"Moonshot Bag Lab — the custom bag pattern calculator. Dream it. Size it. Sew it."~~
+         The canonical is absolute on purpose: the staging site must point at the live address.
+         og:image is composed by scripts/make-og-image.mjs from the hero card's own layers
+         (A243 P2). Guard INV-SEO-HEAD reads the BUILT dist/index.html. -->
+    <title>Moonshot Bag Lab — Custom Bag Sewing Pattern Generator</title>
+    <meta name="description" content="Design a bag to your own dimensions and Moonshot generates the sewing pattern — coordinated pieces, tailored lining, cut list, printable pattern and SVG files." />
+    <link rel="canonical" href="https://moonshotbag.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://moonshotbag.com/" />
+    <meta property="og:title" content="Moonshot Bag Lab — Custom Bag Sewing Pattern Generator" />
+    <meta property="og:description" content="Design a bag to your own dimensions and Moonshot generates the sewing pattern — coordinated pieces, tailored lining, cut list, printable pattern and SVG files." />
+    <meta property="og:image" content="https://moonshotbag.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Design the bag. Moonshot builds the pattern. — Moonshot Bag Lab" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- SEO-HEAD-AND-HERO §2's shell prose, readable before (and without) the app's CSS: it reads
+         the app's tokens when the stylesheet has loaded and falls back to their exact values when
+         it has not. Nothing here hides it (A243 P1: "never hidden text"). -->
+    <style>
+      .ms-shell-hero{box-sizing:border-box;max-width:46rem;margin:0 auto;padding:48px 20px 56px;font-family:var(--font-sans,Nunito,sans-serif);color:var(--ms-cp-ink,#241550);line-height:1.6}
+      .ms-shell-hero h1{margin:0 0 20px;font-family:var(--font-display,Fredoka,sans-serif);font-size:clamp(30px,5vw,46px);line-height:1.15;color:var(--ms-brand-band,#2C1560)}
+      .ms-shell-hero p{margin:0 0 16px;font-size:17px}
+    </style>
+    <script type="module" crossorigin src="/assets/main-CTINh3HR.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/moonshot-DCsOXCuJ.js">
+    <link rel="modulepreload" crossorigin href="/assets/InfoPill-CNbQ3D87.js">
+    <link rel="stylesheet" crossorigin href="/assets/moonshot-BYuReQVR.css">
     <link rel="stylesheet" crossorigin href="/assets/main-BqxdePXA.css">
   </head>
   <body>
-    <div id="root"></div>
+    <!-- ⚡ SEO-HEAD-AND-HERO §2 (✍ Abby 2026-09-12, A243): the page's own words, in the HTML, before
+         React boots — her h1 heading and three paragraphs, verbatim. A243 P1 (CC's pick, flagged): they sit
+         INSIDE #root, so the delivered HTML carries them for readers without JS, link previews and
+         non-rendering crawlers, and createRoot replaces them when the app mounts — her live page is
+         unchanged for anyone running the app. ⚠ Google indexes the RENDERED page, where they are gone
+         after mount; there the meta description carries the snippet. No competitor is named, by her
+         ruling. Guard INV-SEO-HEAD S3–S5.
+         ⚠ No literal h1 TAG is written in this comment: her post-deploy check greps the served file
+         for it, and a comment carrying one would answer that check for a page that had lost it. -->
+    <div id="root">
+      <main class="ms-shell-hero">
+        <h1>Design the bag. Moonshot builds the pattern.</h1>
+        <p>Moonshot is a free browser tool that turns your dimensions and construction choices into a complete, coordinated sewing pattern. Make a tote, purse, train case, duffel or zipper bag at any size you like — no drafting software, no pattern math, and nothing to install. Most makers have a pattern in a few minutes.</p>
+        <p>Change the width and everything follows. The gusset relengths itself, the stabilizer re-insets, the piping resizes and comes with its own instructions, and the lining is drafted to fit the exterior you just designed — not a generic rectangle. When you're happy, print the pattern at full size, download an editable SVG for Illustrator or Inkscape, or a cutter-ready SVG for a vinyl cutter, along with a cutting list of every piece.</p>
+        <p>Built for home sewists and hobby bag makers, not for engineers. Pattern-drafting CAD can do more, and asks you to learn drafting to get it. Moonshot asks for your measurements.</p>
+      </main>
+    </div>
   </body>
 </html>
