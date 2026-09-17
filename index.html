@@ -4,20 +4,34 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- The tab title was the repo slug, which is an internal name a maker never
-         chose to read. Brand + descriptor, per Abby's naming ruling 2026-07-30.
-         The repo, the base path and the deploy target keep the old slug on
-         purpose -- the domains point at them and nothing internal is renamed. -->
-    <!-- ⚡ SEO-HEAD-AND-HERO §1 (✍ Abby 2026-09-12, A243): the page's own words, in the HTML,
-         before React boots. Her strings, verbatim — the title keeps the SITE's name (A242(a)).
-         ~~"Moonshot Bag Lab — The custom bag pattern calculator"~~ ·
-         ~~"Moonshot Bag Lab — the custom bag pattern calculator. Dream it. Size it. Sew it."~~
-         The canonical is absolute on purpose: the staging site must point at the live address.
-         og:image is composed by scripts/make-og-image.mjs from the hero card's own layers
-         (A243 P2). Guard INV-SEO-HEAD reads the BUILT dist/index.html. -->
+    <!-- The page's title, description and link-preview tags. The title has changed since
+         earlier versions of the site. The canonical address is absolute, so every copy of
+         this page points to moonshotbag.com. The Pinterest tag verifies the domain to the
+         site's Pinterest account. -->
     <title>Moonshot Bag Lab — Custom Bag Sewing Pattern Generator</title>
     <meta name="description" content="Design a bag to your own dimensions and Moonshot generates the sewing pattern — coordinated pieces, tailored lining, cut list, printable pattern and SVG files." />
     <link rel="canonical" href="https://moonshotbag.com/" />
+    <!-- ⚡⚡ `A301` item B (✍ Abby): preload the two self-hosted variable faces. They are declared
+         in moonshot.css, which the browser does not see until the JS bundle has fetched and parsed
+         it — so without these the text paints twice: once in the fallback, once when the fonts
+         finally arrive. The preload starts both downloads with the HTML.
+         ⛔⛔ `crossorigin` IS REQUIRED EVEN THOUGH THESE ARE SAME-ORIGIN, and leaving it off is the
+         classic self-hosting defect precisely because NOTHING LOOKS WRONG: a font is fetched in
+         CORS mode by spec, a preload without `crossorigin` is fetched in a different mode, the two
+         requests do not match, and the browser downloads each file TWICE — paying the cost of
+         self-hosting and getting none of it. `FNT2` asserts the attribute for that reason.
+         ⚠ ~~The paths are relative (no leading slash) so they survive BOTH bases — the dev subpath
+         and the live root — the same requirement `A228` enforces for the bundle.~~ STRUCK:
+         relative paths did load at both bases, but the live deploy check requires every built path
+         to BEGIN with `/`, and it refused the live build. Vite writes the base in at build time —
+         `/moonshot-bag-calc-dev/` on staging, `/` live — so the check passes unchanged. -->
+    <!-- ⚡ `A301` item D: the footer strip's dress, shared with /faq/ so the socials row and the
+         copyright line are ONE file rather than two hand-kept copies. Same-origin, so the
+         zero-external-origin sweep is untouched. Its own header states the CLAUDE.md conflict it
+         carries and the scope it is held to. -->
+    <link rel="stylesheet" href="/footer-strip.css" />
+    <link rel="preload" href="/fonts/nunito-variable-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/fredoka-variable-latin.woff2" as="font" type="font/woff2" crossorigin />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://moonshotbag.com/" />
     <meta property="og:title" content="Moonshot Bag Lab — Custom Bag Sewing Pattern Generator" />
@@ -27,30 +41,24 @@
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Design the bag. Moonshot builds the pattern. — Moonshot Bag Lab" />
     <meta name="twitter:card" content="summary_large_image" />
-    <!-- SEO-HEAD-AND-HERO §2's shell prose, readable before (and without) the app's CSS: it reads
-         the app's tokens when the stylesheet has loaded and falls back to their exact values when
-         it has not. Nothing here hides it (A243 P1: "never hidden text"). -->
+    <meta name="p:domain_verify" content="35ca43b9bd27d2404befff6cac84b412"/>
+    <!-- Styles for the description below, so it reads well before the app's stylesheet
+         loads: it uses the app's own colours and fonts once they are available, and the
+         same values until then. -->
     <style>
       .ms-shell-hero{box-sizing:border-box;max-width:46rem;margin:0 auto;padding:48px 20px 56px;font-family:var(--font-sans,Nunito,sans-serif);color:var(--ms-cp-ink,#241550);line-height:1.6}
       .ms-shell-hero h1{margin:0 0 20px;font-family:var(--font-display,Fredoka,sans-serif);font-size:clamp(30px,5vw,46px);line-height:1.15;color:var(--ms-brand-band,#2C1560)}
       .ms-shell-hero p{margin:0 0 16px;font-size:17px}
     </style>
-    <script type="module" crossorigin src="/assets/main-CTINh3HR.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/moonshot-DCsOXCuJ.js">
-    <link rel="modulepreload" crossorigin href="/assets/InfoPill-CNbQ3D87.js">
-    <link rel="stylesheet" crossorigin href="/assets/moonshot-BYuReQVR.css">
-    <link rel="stylesheet" crossorigin href="/assets/main-BqxdePXA.css">
+    <script type="module" crossorigin src="/assets/main-C2INeq4Q.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/main-Cy0sKtjj.css">
   </head>
   <body>
-    <!-- ⚡ SEO-HEAD-AND-HERO §2 (✍ Abby 2026-09-12, A243): the page's own words, in the HTML, before
-         React boots — her h1 heading and three paragraphs, verbatim. A243 P1 (CC's pick, flagged): they sit
-         INSIDE #root, so the delivered HTML carries them for readers without JS, link previews and
-         non-rendering crawlers, and createRoot replaces them when the app mounts — her live page is
-         unchanged for anyone running the app. ⚠ Google indexes the RENDERED page, where they are gone
-         after mount; there the meta description carries the snippet. No competitor is named, by her
-         ruling. Guard INV-SEO-HEAD S3–S5.
-         ⚠ No literal h1 TAG is written in this comment: her post-deploy check greps the served file
-         for it, and a comment carrying one would answer that check for a page that had lost it. -->
+    <!-- Moonshot Bag Designer generates custom bag sewing patterns in the browser.
+         The heading and copy below are the page's own description of the tool. They are
+         in the delivered HTML so that readers without JavaScript, link previews and
+         crawlers that do not run scripts still get a real description of what this is;
+         the app replaces them when it mounts. -->
     <div id="root">
       <main class="ms-shell-hero">
         <h1>Design the bag. Moonshot builds the pattern.</h1>

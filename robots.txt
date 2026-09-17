@@ -1,0 +1,13 @@
+# Moonshot — robots.txt
+# ✍ Abby, 2026-09-15 (`A299` §3): "allow all, one Sitemap line with the absolute URL."
+#
+# The Sitemap line is absolute and names the LIVE domain on purpose: this file
+# also ships to the staging copy, whose protection is the absolute
+# `<link rel="canonical">` to moonshotbag.com that every page already carries.
+# A staging robots.txt pointing at the live sitemap is the honest pairing —
+# it never advertises the staging host's own URLs. Guard: INV-SITEMAP.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://moonshotbag.com/sitemap.xml

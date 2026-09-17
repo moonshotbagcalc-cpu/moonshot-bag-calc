@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ✍ Abby, 2026-09-15 (`A299` §3): "public/sitemap.xml lists the app root and
+     /faq/ only. NOT /legend/, NOT /peanut-butter/ — those are internal."
+     The URLs are ABSOLUTE and name the LIVE domain, because a sitemap is read by
+     crawlers against the canonical site — the same address `index.html`'s
+     `<link rel="canonical">` already points at. Guard: INV-SITEMAP. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://moonshotbag.com/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://moonshotbag.com/faq/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>
