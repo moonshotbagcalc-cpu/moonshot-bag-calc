@@ -40,8 +40,29 @@
    ⚠ HER RULE FOR THESE: the GROUND shifts one step, the TEXT does not move. That is the opposite of
    a text link on purpose — a pill's text sits ON its ground, so moving the text is what made
    "Back to the bag designer" disappear into its own button. */
+/* ══ ⚡⚡ `FOOTER-CONTACT-CENTRE` — ✍ Abby (`A322` close, queue item 3) ═════════════
+   *"the contact pill sits left while the signup row, tagline and socials are centred, on `/` and
+   `/faq/`; centre it; leg beside `F9`: pill centre x = signup row centre x within 1 px at 390 and
+   1280; mutant = the old alignment."*
+
+   🩸 MEASURED FIRST, ON BOTH PAGES AT BOTH WIDTHS (`A327-footer-centre-probe.mjs`), and the
+   measurement SPLIT her sentence in two:
+
+     /faq/  @1280   pill cx 379.42   signup row (`form.nl`) cx 640      Δ 260.58   ← hers, exactly
+     /faq/  @390    pill cx 123.42   signup row cx 195                  Δ  71.58   ← hers, exactly
+     /      @390    pill cx 127.43   tagline / copy / socials cx 195    Δ  67.57   ← hers, exactly
+     /      @1280   pill cx 983.53   its own column's cx 1055           Δ  71.47   ← NOT hers
+
+   ⭐ ON `/faq/` THE PILL IS THE ONE THING NOT CENTRED: its container is `text-align:center`, and its
+   two siblings — the signup form and the foot-note — both centre on 640. On `/` at 1280 there is no
+   signup row in the footer at all, and the pill's three column siblings (eyebrow, heading, sub) are
+   ALL left-aligned at x=870: there the pill agrees with its context, and centring it would move it
+   away from its own heading. So the rule below is the DEFAULT and the app's contact COLUMN opts out
+   at its own breakpoint — ⚑ and whether `/` at 1280 should change is flagged for her, not guessed.
+   ⚠ ONE FILE, BOTH PAGES: `.ms-footer-email` lives here precisely so `/faq/` and `/` cannot drift
+   (see the note above), which is why this is one rule and not two. Guard `F10`. */
 .ms-footer-email{
-  align-self:flex-start;
+  align-self:center;
   display:inline-flex;
   align-items:center;
   box-sizing:border-box;
@@ -66,6 +87,14 @@
   color:var(--ms-ink-on-dark);
 }
 .ms-footer-email:focus-visible{ outline:2px solid var(--ms-ink-on-dark); outline-offset:2px; }
+/* ⛔ THE APP'S CONTACT COLUMN OPTS OUT ABOVE THE STACK, and the opt-out is the measurement above,
+   not caution: at ≥768 the pill sits in a three-column footer whose eyebrow, heading and sub are
+   all left-aligned, so `center` would leave the address floating away from the sentence that
+   introduces it. Below 768 the footer is one stack and everything in it centres — which is the case
+   her sentence describes on `/`. `/faq/` has no `.ms-footer-col`, so it centres at every width. */
+@media (min-width:768px){
+  .ms-footer-col .ms-footer-email{ align-self:flex-start; }
+}
 
 /* ⚡ THE FILLED PILL BUTTON — the FAQ's "Back to the bag designer". Its ground is a light-on-white
    fill, so one step is DARKER; the text stays white either way, which is her "text colour

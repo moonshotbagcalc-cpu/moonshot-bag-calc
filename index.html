@@ -4,67 +4,42 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- The page's title, description and link-preview tags. The title has changed since
-         earlier versions of the site. The canonical address is absolute, so every copy of
-         this page points to moonshotbag.com. The Pinterest tag verifies the domain to the
-         site's Pinterest account. -->
-    <title>Moonshot Bag Lab — Custom Bag Sewing Pattern Generator</title>
-    <meta name="description" content="Design a bag to your own dimensions and Moonshot generates the sewing pattern — coordinated pieces, tailored lining, cut list, printable pattern and SVG files." />
+    
+    <title>Moonshot Bag Designer — Free Bag Sewing Patterns from Your Dimensions</title>
+    <meta name="description" content="Enter your dimensions and Moonshot generates a printable sewing pattern, cut list, tailored lining, and SVG files for totes, handbags, purses, duffels and zipper bags." />
     <link rel="canonical" href="https://moonshotbag.com/" />
-    <!-- ⚡⚡ `A301` item B (✍ Abby): preload the two self-hosted variable faces. They are declared
-         in moonshot.css, which the browser does not see until the JS bundle has fetched and parsed
-         it — so without these the text paints twice: once in the fallback, once when the fonts
-         finally arrive. The preload starts both downloads with the HTML.
-         ⛔⛔ `crossorigin` IS REQUIRED EVEN THOUGH THESE ARE SAME-ORIGIN, and leaving it off is the
-         classic self-hosting defect precisely because NOTHING LOOKS WRONG: a font is fetched in
-         CORS mode by spec, a preload without `crossorigin` is fetched in a different mode, the two
-         requests do not match, and the browser downloads each file TWICE — paying the cost of
-         self-hosting and getting none of it. `FNT2` asserts the attribute for that reason.
-         ⚠ ~~The paths are relative (no leading slash) so they survive BOTH bases — the dev subpath
-         and the live root — the same requirement `A228` enforces for the bundle.~~ STRUCK:
-         relative paths did load at both bases, but the live deploy check requires every built path
-         to BEGIN with `/`, and it refused the live build. Vite writes the base in at build time —
-         `/moonshot-bag-calc-dev/` on staging, `/` live — so the check passes unchanged. -->
-    <!-- ⚡ `A301` item D: the footer strip's dress, shared with /faq/ so the socials row and the
-         copyright line are ONE file rather than two hand-kept copies. Same-origin, so the
-         zero-external-origin sweep is untouched. Its own header states the CLAUDE.md conflict it
-         carries and the scope it is held to. -->
+    
+    
     <link rel="stylesheet" href="/footer-strip.css" />
     <link rel="preload" href="/fonts/nunito-variable-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/fredoka-variable-latin.woff2" as="font" type="font/woff2" crossorigin />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://moonshotbag.com/" />
-    <meta property="og:title" content="Moonshot Bag Lab — Custom Bag Sewing Pattern Generator" />
-    <meta property="og:description" content="Design a bag to your own dimensions and Moonshot generates the sewing pattern — coordinated pieces, tailored lining, cut list, printable pattern and SVG files." />
+    <meta property="og:title" content="Moonshot Bag Designer — Free Bag Sewing Patterns from Your Dimensions" />
+    <meta property="og:description" content="Enter your dimensions and Moonshot generates a printable sewing pattern, cut list, tailored lining, and SVG files for totes, handbags, purses, duffels and zipper bags." />
     <meta property="og:image" content="https://moonshotbag.com/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Design the bag. Moonshot builds the pattern. — Moonshot Bag Lab" />
+    <meta property="og:image:alt" content="Design the bag. Moonshot builds the pattern. — Moonshot Bag Designer" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="p:domain_verify" content="35ca43b9bd27d2404befff6cac84b412"/>
-    <!-- Styles for the description below, so it reads well before the app's stylesheet
-         loads: it uses the app's own colours and fonts once they are available, and the
-         same values until then. -->
+    
     <style>
       .ms-shell-hero{box-sizing:border-box;max-width:46rem;margin:0 auto;padding:48px 20px 56px;font-family:var(--font-sans,Nunito,sans-serif);color:var(--ms-cp-ink,#241550);line-height:1.6}
       .ms-shell-hero h1{margin:0 0 20px;font-family:var(--font-display,Fredoka,sans-serif);font-size:clamp(30px,5vw,46px);line-height:1.15;color:var(--ms-brand-band,#2C1560)}
       .ms-shell-hero p{margin:0 0 16px;font-size:17px}
     </style>
-    <script type="module" crossorigin src="/assets/main-BYTUzCdD.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/main-Cy0sKtjj.css">
+    <script type="module" crossorigin src="/assets/main-Vy01iPh-.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/main-C_W8nFmz.css">
   </head>
   <body>
-    <!-- Moonshot Bag Designer generates custom bag sewing patterns in the browser.
-         The heading and copy below are the page's own description of the tool. They are
-         in the delivered HTML so that readers without JavaScript, link previews and
-         crawlers that do not run scripts still get a real description of what this is;
-         the app replaces them when it mounts. -->
+    
     <div id="root">
       <main class="ms-shell-hero">
         <h1>Design the bag. Moonshot builds the pattern.</h1>
-        <p>Moonshot is a free browser tool that turns your dimensions and construction choices into a complete, coordinated sewing pattern. Make a tote, purse, train case, duffel or zipper bag at any size you like — no drafting software, no pattern math, and nothing to install. Most makers have a pattern in a few minutes.</p>
+        <p>Moonshot is a free browser tool that turns your dimensions and construction choices into a complete, coordinated sewing pattern. Make a tote, purse, handbag, train case, duffel or zipper bag at any size you like — no drafting software, no pattern math, and nothing to install. Most makers have a pattern in a few minutes.</p>
         <p>Change the width and everything follows. The gusset relengths itself, the stabilizer re-insets, the piping resizes and comes with its own instructions, and the lining is drafted to fit the exterior you just designed — not a generic rectangle. When you're happy, print the pattern at full size, download an editable SVG for Illustrator or Inkscape, or a cutter-ready SVG for a vinyl cutter, along with a cutting list of every piece.</p>
-        <p>Built for home sewists and hobby bag makers, not for engineers. Pattern-drafting CAD can do more, and asks you to learn drafting to get it. Moonshot asks for your measurements.</p>
+        <p>Built for home sewists and hobby bag makers, not for engineers. Pattern-drafting CAD can do more, and asks you to learn drafting to get it. Moonshot is a bag pattern designer that asks only for your measurements.</p>
       </main>
     </div>
   </body>

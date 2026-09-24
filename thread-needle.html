@@ -26,7 +26,16 @@
   window.gtag("config", GA_ID, { send_page_view: true, anonymize_ip: true });
 })();
 </script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=DM+Mono:wght@400;500&display=swap">
+<!-- FONTS-LEGACY-PAGES: the faces are served from this site. This page is reference-only; the
+     font link is the one thing in it that may move, and nothing else here has. The paths are
+     RELATIVE because this page is a static file copied into the build unchanged, so no tool
+     rewrites them: it sits at the base's root, and "fonts/…" resolves under the staging sub-path
+     and under the live root alike, where a leading slash would only be right on one of them. -->
+<style>
+@font-face{font-family:"Nunito";font-style:normal;font-weight:200 1000;font-display:swap;src:url("fonts/nunito-variable-latin.woff2") format("woff2")}
+@font-face{font-family:"DM Mono";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/dm-mono-400-latin.woff2") format("woff2")}
+@font-face{font-family:"DM Mono";font-style:normal;font-weight:500;font-display:swap;src:url("fonts/dm-mono-500-latin.woff2") format("woff2")}
+</style>
 <style>
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0;padding:0;background:#33284f;font-family:Nunito,sans-serif;

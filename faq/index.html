@@ -8,7 +8,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FAQ — Moonshot Bag Lab</title>
+  <title>FAQ — Moonshot Bag Designer</title>
   <meta name="description" content="A tool that creates a sewing pattern from your own measurements and construction choices, instead of giving you a fixed pattern in fixed sizes. You enter the starting size you want, choose how the bag is built, and the pattern pieces are generated around those decisions.">
   <link rel="canonical" href="https://moonshotbag.com/faq/">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
@@ -196,7 +196,10 @@
     /* ~~.back~~ DELETED (A301 amendment 8): the button is .ms-pill-btn now, declared once in
        public/footer-strip.css so it is the SAME class the rule exempts rather than a look-alike.
        Only its page-specific margin stays here. */
-    .ms-pill-btn { margin-top: 36px; font-size: 1.0625rem; }
+    /* A352 §3 (Abby, 2026-09-23): "Back to the bag designer" CENTERED under the FAQ block (it was left-aligned) */
+    .ms-pill-btn { display: block; width: fit-content; margin: 36px auto 0; font-size: 1.0625rem; }
+    /* A352 §3: the junk-folder line under the signup, the footer's body-text rule (.foot-note's size and ink) */
+    .nl-note { margin: 0; color: var(--sp-lavender); font-size: 1rem; font-style: italic; }   /* A353: italic, one line with the hero's */
     /* ── ⚡⚡ THE FOOT — her signup and her address, on the app's own dark ground ──────
        Indigo here too, so the page reads header / body / foot the way the app does — and
        so the signup has the dark card its dress was designed against. */
@@ -288,7 +291,7 @@
       "name": "Is Moonshot free?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. The bag designer and the calculators are free to use, and the basic app will stay free. There's no account, no download, and nothing to install."
+        "text": "Yes. The bag designer and the calculators are free to use, and the basic app stays free. Enter your bag dimensions and Moonshot generates the sewing pattern, cut list, and printable files at no cost. There's no account, no download, and nothing to install."
       }
     },
     {
@@ -408,7 +411,7 @@
       "name": "Who made this?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Moonshot Bag Lab is built by Abby, a graphic designer of 30+ years and a bag maker, for other bag makers. It's actively developed — new constructions, components and controls are added regularly. Questions and ideas are welcome in the Moonshot Bag Lab Facebook group."
+        "text": "Moonshot Bag Designer is built by Abby, a graphic designer of 30+ years and a bag maker, for other bag makers. It's actively developed — new constructions, components and controls are added regularly. Questions and ideas are welcome in the Moonshot Facebook group."
       }
     },
     {
@@ -416,7 +419,7 @@
       "name": "How can I support Moonshot?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Link to it. Moonshot is free and has no ads, so the most useful thing you can do is put moonshotbag.com where other makers will find it — in your Facebook group replies, a forum thread, a blog post, a pattern round-up, or your project notes. Links from real pages are how Google learns a site is worth showing, and every one helps. Sharing a photo of a bag you made with it, tagged so people can find the tool, does the same job. If you'd like to tip, there's a Ko-fi page at ko-fi.com/moonshotbag — tips keep the tool free and go toward new constructions and technique guides."
+        "text": "Link to it. Moonshot is free and has no ads, so the most useful thing you can do is put moonshotbag.com where other makers will find it — in your Facebook group replies, a forum thread, a blog post, a pattern round-up, or your project notes. Links from real pages are how Google learns a site is worth showing, and every one helps. Sharing a photo of a bag you made with it, tagged so people can find the tool, does the same job. Buy me a coffee on Ko-fi to help keep these features free."
       }
     }
   ]
@@ -436,7 +439,7 @@
       <p>A tool that creates a sewing pattern from your own measurements and construction choices, instead of giving you a fixed pattern in fixed sizes. You enter the starting size you want, choose how the bag is built, and the pattern pieces are generated around those decisions.</p>
 
       <h2>Is Moonshot free?</h2>
-      <p>Yes. The bag designer and the calculators are free to use, and the basic app will stay free. There's no account, no download, and nothing to install.</p>
+      <p>Yes. The bag designer and the calculators are free to use, and the basic app stays free. Enter your bag dimensions and Moonshot generates the sewing pattern, cut list, and printable files at no cost. There's no account, no download, and nothing to install.</p>
 
       <h2>Are the patterns AI-generated?</h2>
       <p>No. Every piece is calculated from your dimensions using geometry — the same relationships a patternmaker works out by hand on paper. Nothing is produced by a language model and nothing is guessed. If two pieces sew together, their seam lengths match because the math says so.</p>
@@ -481,10 +484,10 @@
       <p>Totes, purses, handbags, train cases, duffels, slings, dust covers and structured cases, among others — with gussets, boxed bottoms, piping, accordion pockets and lining. The construction options combine, so you're not choosing from a catalog of finished patterns.</p>
 
       <h2>Who made this?</h2>
-      <p>Moonshot Bag Lab is built by Abby, a graphic designer of 30+ years and a bag maker, for other bag makers. It's actively developed — new constructions, components and controls are added regularly. Questions and ideas are welcome in the <a href="https://www.facebook.com/groups/moonshotbag" target="_blank" rel="noopener">Moonshot Bag Lab Facebook group</a>.</p>
+      <p>Moonshot Bag Designer is built by Abby, a graphic designer of 30+ years and a bag maker, for other bag makers. It's actively developed — new constructions, components and controls are added regularly. Questions and ideas are welcome in the <a href="https://www.facebook.com/groups/moonshotbag" target="_blank" rel="noopener">Moonshot Facebook group</a>.</p>
 
       <h2>How can I support Moonshot?</h2>
-      <p>Link to it. Moonshot is free and has no ads, so the most useful thing you can do is put moonshotbag.com where other makers will find it — in your Facebook group replies, a forum thread, a blog post, a pattern round-up, or your project notes. Links from real pages are how Google learns a site is worth showing, and every one helps. Sharing a photo of a bag you made with it, tagged so people can find the tool, does the same job. If you'd like to tip, there's a Ko-fi page at <a href="https://ko-fi.com/moonshotbag" target="_blank" rel="noopener">ko-fi.com/moonshotbag</a> — tips keep the tool free and go toward new constructions and technique guides.</p>
+      <p>Link to it. Moonshot is free and has no ads, so the most useful thing you can do is put moonshotbag.com where other makers will find it — in your Facebook group replies, a forum thread, a blog post, a pattern round-up, or your project notes. Links from real pages are how Google learns a site is worth showing, and every one helps. Sharing a photo of a bag you made with it, tagged so people can find the tool, does the same job. <a href="https://ko-fi.com/moonshotbag" target="_blank" rel="noopener">Buy me a coffee</a> on Ko-fi to help keep these features free.</p>
     </div>
 
       <a class="ms-pill-btn" href="../">Back to the bag designer</a>
@@ -498,6 +501,8 @@
           <button class="nl-button" type="submit">Keep me posted</button>
         </div>
       </form>
+      <!-- A352 §3 (Abby, 2026-09-23): the same junk-folder line as the hero's, under this footer's signup, at the footer's body size -->
+      <p class="nl-note">To confirm your sign-up, you may need to check your spam folder.</p>
       <a class="ms-footer-email" href="mailto:abby@moonshotbag.com">abby@moonshotbag.com</a>
       <p class="foot-note">Moonshot — design a bag to your own dimensions. <a href="../">Open the designer</a></p>
     </div>
@@ -506,9 +511,9 @@
     <div class="ms-footer-strip">
       <p class="ms-footer-copy">© Moonshot · made with love for the bag-making community</p>
       <p class="ms-footer-links">
-        <a class="ms-footer-community" href="https://www.facebook.com/groups/moonshotbag" target="_blank" rel="noopener"><svg class="ms-footer-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg>Moonshot Bag Lab on Facebook</a>
-        <a class="ms-footer-community" href="https://www.youtube.com/@Moonshotbag" target="_blank" rel="noopener"><svg class="ms-footer-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>Moonshot Bag Lab on YouTube</a>
-        <a class="ms-footer-community" href="https://ko-fi.com/moonshotbag" target="_blank" rel="noopener"><svg class="ms-footer-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h13a4 4 0 0 1 0 8h-1.1a6.5 6.5 0 0 1-6.4 5.5H8.5A6.5 6.5 0 0 1 2 11V6a2 2 0 0 1 2-2Zm11 2v4h2a2 2 0 0 0 0-4h-2ZM3 20h16v2H3v-2Z"/></svg>Support Moonshot on Ko-fi</a>
+        <a class="ms-footer-community" href="https://www.facebook.com/groups/moonshotbag" target="_blank" rel="noopener"><svg class="ms-footer-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg>Moonshot Bag Designer on Facebook</a>
+        <a class="ms-footer-community" href="https://www.youtube.com/@Moonshotbag" target="_blank" rel="noopener"><svg class="ms-footer-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>Moonshot Bag Designer on YouTube</a>
+        <a class="ms-footer-community" href="https://ko-fi.com/moonshotbag" target="_blank" rel="noopener"><svg class="ms-footer-glyph" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h13a4 4 0 0 1 0 8h-1.1a6.5 6.5 0 0 1-6.4 5.5H8.5A6.5 6.5 0 0 1 2 11V6a2 2 0 0 1 2-2Zm11 2v4h2a2 2 0 0 0 0-4h-2ZM3 20h16v2H3v-2Z"/></svg>Buy me a coffee</a>
       </p>
     </div>
   </footer>
