@@ -10,6 +10,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FAQ — Moonshot Bag Designer</title>
   <meta name="description" content="A tool that creates a sewing pattern from your own measurements and construction choices, instead of giving you a fixed pattern in fixed sizes. You enter the starting size you want, choose how the bag is built, and the pattern pieces are generated around those decisions.">
+  <!-- Google Analytics (GA4). This page is a standalone page, so its tag is set up here directly. It loads only on
+       moonshotbag.com, never on a local or preview copy of the page. -->
+  <script>
+  (function(){
+    var GA_ID = "G-LX2KQHNYM9";
+    var GA_HOSTS = ["moonshotbag.com", "www.moonshotbag.com"];
+    if (GA_HOSTS.indexOf(window.location.hostname) === -1) return;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+    var s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
+    document.head.appendChild(s);
+    window.gtag("js", new Date());
+    window.gtag("config", GA_ID, { send_page_view: true, anonymize_ip: true });
+  })();
+  </script>
   <link rel="canonical" href="https://moonshotbag.com/faq/">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <!-- A301 item B: the same two self-hosted faces the app ships, preloaded. crossorigin is
